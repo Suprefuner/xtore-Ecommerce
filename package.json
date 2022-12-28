@@ -1,0 +1,41 @@
+{
+  "name": "e-commerce",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "@stripe/react-stripe-js": "^1.16.1",
+    "@stripe/stripe-js": "^1.46.0",
+    "airtable-node": "^0.1.20",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "firebase": "^9.15.0",
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
+    "react-router": "^6.5.0",
+    "react-router-dom": "^6.5.0",
+    "react-toastify": "^9.1.1",
+    "stripe": "^11.5.0",
+    "styled-components": "^5.3.6",
+    "swiper": "^8.4.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@netlify/vite-plugin-netlify-edge": "^1.1.1",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "netlify-cli": "^12.5.0",
+    "vite": "^4.0.0"
+  }
+}
