@@ -5,10 +5,22 @@ import {
   setCartItemToLocalStorage,
 } from "../../utils/localStorage"
 
+const getInitialCartTotal = (type) => {
+  return type === "items"
+    ? getCartFromLocalStorage().reduce(
+        (acc, { quantity }) => (acc += quantity),
+        0
+      )
+    : getCartFromLocalStorage().reduce(
+        (acc, { quantity, price }) => (acc += quantity * price),
+        0
+      )
+}
+
 const initialState = {
   cart: getCartFromLocalStorage(),
-  totalItems: 0,
-  totalAmount: 0,
+  totalItems: getInitialCartTotal("items"),
+  totalAmount: getInitialCartTotal("amount"),
   shippingFee: 50000,
   allSelected: false,
   modal: {
@@ -47,6 +59,8 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cart = []
+      state.totalAmount = 0
+      state.totalItems = 0
       removeCartFromLocalStorage()
     },
     selectCartItem: (state, { payload }) => {

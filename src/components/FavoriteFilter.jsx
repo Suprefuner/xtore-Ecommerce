@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
-import { getUniqueValues } from "../utils/helpers"
+import { getUniqueValues, getCategoriesInOrder } from "../utils/helpers"
 import {
   updateFilter,
   updateSort,
@@ -14,10 +14,13 @@ const FavoriteFilter = () => {
   const { text, brand, sex, category, color } = filters
   const dispatch = useDispatch()
 
-  const brands = getUniqueValues(favorites, "brand")
   const sexs = getUniqueValues(favorites, "sex")
-  const categories = getUniqueValues(favorites, "category")
   const colors = getUniqueValues(favorites, "colors")
+  let brands = getUniqueValues(favorites, "brand")
+  let categories = getUniqueValues(favorites, "category")
+
+  brands = getCategoriesInOrder(brands)
+  categories = getCategoriesInOrder(categories)
 
   const handleChange = (e) => {
     let name = e.target.name
@@ -126,6 +129,15 @@ const Wrapper = styled.div`
     .form-control {
       input[type="text"] {
         border-radius: 0;
+      }
+
+      select {
+        text-transform: capitalize;
+
+        &:focus {
+          outline: 2px solid var(--primary-500);
+          outline-offset: 2px;
+        }
       }
 
       &:not(:first-child) > * {

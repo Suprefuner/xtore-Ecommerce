@@ -136,6 +136,15 @@ const Wrapper = styled.main`
   /* MEN & WOMEN SECTION --------------------- */
   .shop-visual {
     position: relative;
+    overflow: hidden;
+
+    img {
+      transition: 0.3s;
+    }
+
+    &:hover img {
+      scale: 1.2;
+    }
 
     button {
       width: 15rem;

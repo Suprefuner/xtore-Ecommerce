@@ -25,12 +25,19 @@ const filterSlice = createSlice({
       state.allProducts = payload
 
       let tempProducts = [...payload]
-      const { category } = state.filters
-      if (category && category.toLowerCase() !== "all") {
+
+      const { category, sex } = state.filters
+      if (
+        category &&
+        category.toLowerCase() !== "all" &&
+        sex &&
+        sex.toLowerCase() !== "all"
+      ) {
         tempProducts = tempProducts.filter(
-          (product) => product.category === category
+          (product) => product.category === category && product.sex === sex
         )
       }
+
       state.filteredProducts = tempProducts
 
       // state.filteredProducts = payload
@@ -54,21 +61,21 @@ const filterSlice = createSlice({
     sortProducts: (state) => {
       let tempProducts = []
       if (state.sort === "price-lowest") {
-        tempProducts = state.allProducts.sort((a, b) => a.price - b.price)
+        tempProducts = state.filteredProducts.sort((a, b) => a.price - b.price)
       }
 
       if (state.sort === "price-highest") {
-        tempProducts = state.allProducts.sort((a, b) => b.price - a.price)
+        tempProducts = state.filteredProducts.sort((a, b) => b.price - a.price)
       }
 
       if (state.sort === "name-a") {
-        tempProducts = state.allProducts.sort((a, b) =>
+        tempProducts = state.filteredProducts.sort((a, b) =>
           a.brand.localeCompare(b.brand)
         )
       }
 
       if (state.sort === "name-z") {
-        tempProducts = state.allProducts.sort((a, b) =>
+        tempProducts = state.filteredProducts.sort((a, b) =>
           b.brand.localeCompare(a.brand)
         )
       }

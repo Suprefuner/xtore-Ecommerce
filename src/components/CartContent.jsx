@@ -54,9 +54,9 @@ const CartContent = () => {
           delete selected item
         </button>
         <div className="buttons">
-          <button className="btn btn--stroke">
-            <Link to="/products">keep shopping</Link>
-          </button>
+          <Link to="/products">
+            <button className="btn btn--stroke">keep shopping</button>
+          </Link>
           <button className="btn btn--stroke" onClick={handleClearCart}>
             clear cart
           </button>

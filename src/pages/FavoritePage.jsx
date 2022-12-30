@@ -38,6 +38,8 @@ const Wrapper = styled.div`
   section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    justify-items: center;
+    row-gap: 3rem;
     padding-block: 3rem;
   }
 `

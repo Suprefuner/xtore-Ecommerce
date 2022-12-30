@@ -21,6 +21,7 @@ const ProductInGenderPage = ({ sex }) => {
   const categoriesInOrder = getCategoriesInOrder(categories)
 
   const handleClick = (category) => {
+    dispatch(updateFilter({ name: "sex", value: gender }))
     dispatch(updateFilter({ name: "category", value: category }))
     dispatch(filterProducts())
   }

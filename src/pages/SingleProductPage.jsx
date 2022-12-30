@@ -28,7 +28,7 @@ const SingleProductPage = () => {
 
   const [stockLevel, setStockLevel] = useState(2)
   const [isMax, setIsMax] = useState(false)
-  const [currentSize, setCurrentSize] = useState(product.currentSize)
+  const [currentSize, setCurrentSize] = useState(0)
   const [count, setCount] = useState(1)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,6 +36,10 @@ const SingleProductPage = () => {
   useEffect(() => {
     dispatch(fetchSingleProduct({ id, url }))
   }, [id])
+
+  useEffect(() => {
+    setCurrentSize(product.currentSize)
+  }, [product])
 
   useEffect(() => {
     setCartItemToLocalStorage(cart)

@@ -35,7 +35,7 @@ const Sort = () => {
           className={`${!gridView ? "active" : null}`}
           onClick={() => dispatch(setListView())}
         >
-          <BsList />
+          <BsList className="list-icon" />
         </button>
       </div>
       <p>{products.length} products found</p>
@@ -71,13 +71,13 @@ const Wrapper = styled.div`
     }
 
     &.active {
-      color: var(--white);
+      color: white;
       background-color: var(--black);
     }
-  }
 
-  button:not(:last-child) {
-    margin-right: 0.5rem;
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
   }
 
   select {
