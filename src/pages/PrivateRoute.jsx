@@ -1,11 +1,16 @@
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router"
+import { Loading } from "../components"
 
 const PrivateRoute = ({ children }) => {
   const { user, isLoading } = useSelector((store) => store.user)
 
   if (isLoading) {
-    return <h3>loading...</h3>
+    return (
+      <div className="section-center">
+        <Loading />
+      </div>
+    )
   }
 
   if (!user) {

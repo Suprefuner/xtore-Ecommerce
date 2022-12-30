@@ -15,11 +15,24 @@ export const setCartItemToLocalStorage = (cart) => {
   localStorage.setItem("cart", JSON.stringify(cart))
 }
 
-export const removeCartToLocalStorage = () => {
+export const removeCartFromLocalStorage = () => {
   localStorage.removeItem("cart")
 }
 
 export const getCartFromLocalStorage = () => {
   const res = localStorage.getItem("cart")
+  return res ? JSON.parse(res) : []
+}
+
+export const setFavoriteToLocalStorage = (favorite) => {
+  localStorage.setItem("favorite", JSON.stringify(favorite))
+}
+
+export const removeFavoriteFromLocalStorage = () => {
+  localStorage.removeItem("favorite")
+}
+
+export const getFavoriteFromLocalStorage = () => {
+  const res = localStorage.getItem("favorite")
   return res ? JSON.parse(res) : []
 }

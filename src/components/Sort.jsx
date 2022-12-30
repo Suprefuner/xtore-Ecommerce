@@ -82,6 +82,12 @@ const Wrapper = styled.div`
 
   select {
     padding: 0.5rem;
+
+    &:focus {
+      outline: 2px solid var(--primary-500);
+      outline-offset: 2px;
+      border-radius: 5px;
+    }
   }
 
   label {

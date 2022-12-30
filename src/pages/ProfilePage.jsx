@@ -6,6 +6,7 @@ import { FormRow } from "../components"
 import { logoutUser, updateUserProfile } from "../features/user/userSlice"
 import { getUserFromLocalStorage } from "../utils/localStorage"
 import { auth } from "../firebase"
+import { Loading } from "../components"
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState(getUserFromLocalStorage())
@@ -39,6 +40,7 @@ const ProfilePage = () => {
 
   // RETURN JSX ------------------------------------------------
   // SECTION
+
   return (
     <Wrapper>
       <div className="container">
@@ -69,7 +71,7 @@ const ProfilePage = () => {
           />
 
           <FormRow
-            type="text"
+            type="select"
             name="title"
             value={title}
             handleChange={handleChange}

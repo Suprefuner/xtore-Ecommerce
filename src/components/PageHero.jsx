@@ -3,7 +3,9 @@ import styled from "styled-components"
 
 const Separator = () => <span className="separator">/</span>
 
-const PageHero = ({ title, product }) => {
+const PageHero = ({ product, title }) => {
+  const { pathname } = window.location
+
   return (
     <Wrapper>
       <p className="container">
@@ -15,7 +17,7 @@ const PageHero = ({ title, product }) => {
           </Link>
         )}
         <Separator />
-        <span className="current">{title}</span>
+        <span className="current">{title ? title : pathname.slice(1)}</span>
       </p>
     </Wrapper>
   )

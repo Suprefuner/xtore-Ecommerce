@@ -97,10 +97,10 @@ const SingleProductPage = () => {
 
   return (
     <Wrapper>
-      <PageHero title={name} product />
+      <PageHero product title={name} />
       <div className="container">
         <section className="section--display">
-          <SingleProductImageSlider images={images} />
+          <SingleProductImageSlider images={images} id={id} />
           <div className="info">
             <h2 className="brand">{brand}</h2>
             <div className="text-row">

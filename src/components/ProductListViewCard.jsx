@@ -1,24 +1,41 @@
 import styled from "styled-components"
 import { formatPrice, calcDiscounted } from "../utils/helpers"
 import { FaRegHeart, FaHeart } from "react-icons/fa"
+import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../features/favorite/favoriteSlice"
+import { toggleFavorite } from "../features/products/productsSlice"
 
 const ProductListViewCard = ({ product }) => {
   const {
     name,
-    sex,
-    category,
     price,
     originalPrice,
-    colors,
     brand,
-    size,
     image,
-    images,
     id,
     sizeAvailable,
     description,
+    favorite,
   } = product
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (favorite) dispatch(addToFavorites(product))
+    else dispatch(removeFromFavorites(id))
+  }, [favorite])
+
   const isDiscounted = !(price === originalPrice)
+
+  const handleFavorite = () => {
+    dispatch(toggleFavorite(id))
+  }
+
   return (
     <Wrapper className="card" key={id}>
       <div className="img-container">
@@ -27,7 +44,12 @@ const ProductListViewCard = ({ product }) => {
       <div className="info">
         <div className="text-row">
           <h2>{brand}</h2>
-          <FaRegHeart className="icon" />
+          {/* <FaRegHeart className="icon" /> */}
+          {favorite ? (
+            <FaHeart className="icon" onClick={handleFavorite} />
+          ) : (
+            <FaRegHeart className="icon" onClick={handleFavorite} />
+          )}
         </div>
         <div className="text-row">
           <span>{name}</span>
@@ -59,7 +81,9 @@ const ProductListViewCard = ({ product }) => {
           </ul>
           <span className="more">...</span>
         </div>
-        <button className="btn btn--fill-primary">details</button>
+        <Link to={`/products/${id}`} className="button">
+          <button className="btn btn--fill-primary">details</button>
+        </Link>
       </div>
     </Wrapper>
   )
@@ -78,10 +102,12 @@ const Wrapper = styled.div`
     border-bottom-left-radius: var(--border-radius-md);
     overflow: hidden;
 
+    &:hover img {
+      scale: 1.1;
+    }
+
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      transition: all 0.2s;
     }
   }
 
@@ -118,7 +144,12 @@ const Wrapper = styled.div`
       color: var(--primary-500);
       margin-bottom: 0.3rem;
       font-size: 2.2rem;
+      transition: 0.2s;
       cursor: pointer;
+
+      &:hover {
+        scale: 1.2;
+      }
     }
   }
 
@@ -133,8 +164,12 @@ const Wrapper = styled.div`
     }
   }
 
-  button {
+  .button {
     margin-top: auto;
+
+    button {
+      width: 100%;
+    }
   }
 `
 

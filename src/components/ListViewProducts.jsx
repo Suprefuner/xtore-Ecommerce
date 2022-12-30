@@ -7,7 +7,7 @@ const ListViewProducts = ({ products }) => {
   return (
     <Wrapper>
       {products.map((product) => (
-        <ProductListViewCard key={product.is} product={product} />
+        <ProductListViewCard key={product.id} product={product} />
       ))}
     </Wrapper>
   )

@@ -27,8 +27,8 @@ const CheckoutPage = () => {
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-top: 3rem;
 
   .empty {
     text-align: center;

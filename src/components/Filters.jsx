@@ -6,32 +6,30 @@ import {
   filterProducts,
 } from "../features/filter/filterSlice"
 import styled from "styled-components"
-import { formatPrice, getUniqueValues } from "../utils/helpers"
-import { FaCheck } from "react-icons/fa"
-import { isAllOf } from "@reduxjs/toolkit"
+import {
+  formatPrice,
+  getUniqueValues,
+  getCategoriesInOrder,
+} from "../utils/helpers"
 
 const Filters = () => {
   const { allProducts, filters } = useSelector((store) => store.filter)
-  // prettier-ignore
-  const { 
-    text, 
-    brand, 
-    sex, 
-    category, 
-    color, 
-    minPrice, 
-    maxPrice, 
-    price } = filters
+  const { text, brand, sex, category, color, minPrice, maxPrice, price } =
+    filters
   const dispatch = useDispatch()
 
-  const brands = getUniqueValues(allProducts, "brand")
-  const categories = getUniqueValues(allProducts, "category")
   const allColors = getUniqueValues(allProducts, "colors")
+  const sexes = getUniqueValues(allProducts, "sex")
+  let brands = getUniqueValues(allProducts, "brand")
+  let categories = getUniqueValues(allProducts, "category")
+  // re-order the array
+  brands = getCategoriesInOrder(brands)
+  categories = getCategoriesInOrder(categories)
 
   const handleChange = (e) => {
     let name = e.target.name
     let value = e.target.value
-    if (name === "category") value = e.target.textContent
+    if (name === "category" || name === "sex") value = e.target.textContent
     if (name === "color") value = e.target.dataset.color
     if (name === "price") value = +e.target.value
     dispatch(updateFilter({ name, value }))
@@ -52,6 +50,20 @@ const Filters = () => {
           />
         </div>
         <div className="form-control control-categories">
+          <h5>Sex</h5>
+          {sexes.map((s, i) => (
+            <button
+              key={i}
+              name="sex"
+              type="button"
+              onClick={handleChange}
+              className={sex === s.toLowerCase() ? "active" : null}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+        <div className="form-control control-categories">
           <h5>Category</h5>
           {categories.map((c, i) => (
             <button
@@ -65,6 +77,7 @@ const Filters = () => {
             </button>
           ))}
         </div>
+
         <div className="form-control">
           <h5>Brands</h5>
           <select
@@ -121,12 +134,16 @@ const Filters = () => {
             min={minPrice}
             max={maxPrice}
             value={price}
+            className="range"
           />
         </div>
         <button
           className="btn btn--fill-black"
           type="button"
-          onClick={() => dispatch(clearFilter())}
+          onClick={() => {
+            dispatch(clearFilter())
+            dispatch(filterProducts())
+          }}
         >
           clear filter
         </button>
@@ -158,6 +175,10 @@ const Wrapper = styled.div`
       border-bottom: 1px solid transparent;
       transition: all 0.2s;
 
+      &:hover {
+        color: var(--primary-500);
+      }
+
       &.active {
         color: var(--primary-700);
         font-weight: var(--fw-semi);
@@ -167,12 +188,12 @@ const Wrapper = styled.div`
 
   select {
     text-transform: capitalize;
-  }
 
-  select:focus {
-    outline: 2px solid var(--primary-500);
-    outline-offset: 2px;
-    border-radius: 5px;
+    &:focus {
+      outline: 2px solid var(--primary-500);
+      outline-offset: 2px;
+      border-radius: 5px;
+    }
   }
 
   .colors {
@@ -192,15 +213,19 @@ const Wrapper = styled.div`
       border-radius: 50%;
       text-transform: capitalize;
       outline: 1px solid var(--grey-500);
-      /* opacity: 0.5; */
+      opacity: 0.65;
       transition: all 0.1s;
+
+      &:hover {
+        opacity: 1;
+      }
 
       &:first-child {
         margin-top: 2px;
       }
 
       &.active {
-        /* opacity: 1; */
+        opacity: 1;
         outline: 2px solid var(--primary-500);
         outline-offset: 2px;
       }

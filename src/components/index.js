@@ -19,7 +19,10 @@ import ListViewProduct from "./ListViewProducts"
 import CartContent from "./CartContent"
 import CartItem from "./CartItem"
 import CartModal from "./CartModal"
+import CartList from "./CartList"
+import CartListItem from "./CartListItem"
 import StripeCheckout from "./StripeCheckout"
+import FavoriteFilter from "./FavoriteFilter"
 import Loading from "./Loading"
 import Error from "./Error"
 
@@ -45,7 +48,10 @@ export {
   CartContent,
   CartItem,
   CartModal,
+  CartList,
+  CartListItem,
   StripeCheckout,
+  FavoriteFilter,
   Loading,
   Error,
 }

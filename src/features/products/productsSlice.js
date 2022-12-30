@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 import axios from "axios"
 import { products_url as url } from "../../utils/constants"
+import { getFavoriteFromLocalStorage } from "../../utils/localStorage"
 
 const initialFilter = {
   search: "",
@@ -39,6 +40,15 @@ export const fetchProducts = createAsyncThunk(
 const productsSlice = createSlice({
   name: "products",
   initialState,
+  reducers: {
+    toggleFavorite: (state, { payload }) => {
+      state.products = state.products.map((product) =>
+        product.id === payload
+          ? { ...product, favorite: !product.favorite }
+          : product
+      )
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -57,12 +67,25 @@ const productsSlice = createSlice({
             if (inventory[size]) sizeAvailable.push(size)
           })
 
-          return { ...product, stock: inventory, sizeAvailable }
+          const favoriteList = getFavoriteFromLocalStorage()
+          // const favoriteList = []
+          const favorite = favoriteList.find(
+            (favItem) => favItem.id === product.id
+          )
+            ? true
+            : false
+
+          return {
+            ...product,
+            stock: inventory,
+            sizeAvailable,
+            favorite,
+          }
         })
         state.totalProducts = payload.length
-        state.trendingProducts = state.products.filter(
-          (product) => product.stars >= 4
-        )
+        // state.trendingProducts = state.products.filter(
+        //   (product) => product.stars >= 4
+        // )
         state.numOfPages = Math.ceil(payload.length / itemsPerPage)
         state.page = 1
         state.isLoading = false
@@ -74,4 +97,5 @@ const productsSlice = createSlice({
   },
 })
 
+export const { toggleFavorite } = productsSlice.actions
 export default productsSlice.reducer

@@ -30,8 +30,8 @@ const CartModal = () => {
 }
 
 const Wrapper = styled.div`
-  width: 60vw;
-  padding: 8rem 8rem;
+  width: clamp(50rem, 40vw, 60rem);
+  padding: 5rem 8rem;
   text-align: center;
   background-color: var(--white);
   border: 1px solid var(--black);

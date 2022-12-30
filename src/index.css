@@ -14,7 +14,7 @@
   --primary-100: #9fddb0;
   --primary-200: #6ecc89;
   --primary-300: #3ebb61;
-  --primary-400: #26b34e;
+  --primary-400: #14d84b;
   --primary-500: #0eaa3a;
   --primary-600: #0b882e;
   --primary-700: #0a7729;
@@ -158,6 +158,24 @@ input:focus {
 
 /* UTILITY CLASSES ----------------------------------------*/
 /* SECTION */
+.loading {
+  --size: 6rem;
+  width: var(--size);
+  height: var(--size);
+  margin: 0 auto;
+
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top-color: var(--primary-500);
+  animation: spinner 0.7s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .container {
   width: 100%;
   max-width: var(--max-width);
@@ -165,8 +183,25 @@ input:focus {
   padding-inline: 3rem;
 }
 
+.section-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .height-100 {
   height: 100vh;
+}
+
+.section {
+  min-height: 100vh;
+}
+
+.section-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .text-sm {
@@ -186,22 +221,46 @@ input:focus {
   font-weight: var(--fw-semi);
 
   border-radius: var(--border-radius-lg);
+  transition: all 0.2s;
   user-select: none;
   cursor: pointer;
+}
+
+.btn:active {
+  scale: 0.95;
 }
 
 .btn--stroke {
   border: 1px solid var(--black);
 }
 
+.btn--stroke:hover {
+  color: white;
+  background-color: black;
+}
+
+/* .btn--stroke:active {
+  color: white;
+  background-color: black;
+  scale: 0.9;
+} */
+
 .btn--fill-black {
   color: white;
   background-color: var(--black);
 }
 
+.btn--fill-black:hover {
+  background-color: var(--grey-400);
+}
+
 .btn--fill-primary {
   color: white;
   background-color: var(--primary-500);
+}
+
+.btn--fill-primary:hover {
+  background-color: var(--primary-400);
 }
 
 .btn--disable {

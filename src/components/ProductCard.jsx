@@ -1,26 +1,36 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import { FaRegHeart } from "react-icons/fa"
+import { FaRegHeart, FaHeart } from "react-icons/fa"
 import { formatPrice } from "../utils/helpers"
+import { toggleFavorite } from "../features/products/productsSlice"
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../features/favorite/favoriteSlice"
+import { useDispatch } from "react-redux"
 
-const ProductCard = ({
-  name,
-  sex,
-  category,
-  price,
-  colors,
-  brand,
-  size,
-  images,
-  id,
-  sizeAvailable,
-}) => {
+const ProductCard = ({ product }) => {
+  const { name, sex, price, brand, images, id, sizeAvailable, favorite } =
+    product
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (favorite) dispatch(addToFavorites(product))
+    else dispatch(removeFromFavorites(id))
+  }, [favorite])
+
+  const handleFavorite = () => {
+    dispatch(toggleFavorite(id))
+  }
+
   return (
-    <Wrapper to={`/products/${id}`}>
-      <div className="img-container">
-        <img src={images[0].url} alt="product main visual" />
-      </div>
+    <Wrapper>
+      <Link to={`/products/${id}`}>
+        <div className="img-container">
+          <img src={images[0].url} alt="product main visual" />
+        </div>
+      </Link>
 
       <div className="info">
         <div className="text-row">
@@ -35,34 +45,42 @@ const ProductCard = ({
         </div>
         <div className="text-row">
           <span className="price">{formatPrice(price)}</span>
-          <FaRegHeart className="icon" />
+          {favorite ? (
+            <FaHeart className="icon" onClick={handleFavorite} />
+          ) : (
+            <FaRegHeart className="icon" onClick={handleFavorite} />
+          )}
         </div>
       </div>
     </Wrapper>
   )
 }
 
-const Wrapper = styled(Link)`
+const Wrapper = styled.div`
   width: 220px;
   border: 1px solid var(--grey-50);
   border-radius: var(--border-radius-md);
-  cursor: pointer;
 
   .img-container {
     width: 220px;
     height: 250px;
-
     background: url(${(props) => props.backgroundImage}) top center no-repeat;
     background-size: cover;
 
     border-top-left-radius: var(--border-radius-md);
     border-top-right-radius: var(--border-radius-md);
     overflow: hidden;
+    cursor: pointer;
+
+    &:hover img {
+      scale: 1.1;
+    }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: all 0.2s;
     }
   }
 
@@ -79,14 +97,11 @@ const Wrapper = styled(Link)`
     }
 
     .product {
-      /* FIXME */
-      font-size: 1.2rem;
-
-      /* width: calc(80%);
+      width: calc(80%);
       font-size: 1.4rem;
       text-overflow: ellipsis;
       overflow: hidden;
-      white-space: nowrap; */
+      white-space: nowrap;
     }
 
     .price {
@@ -98,6 +113,12 @@ const Wrapper = styled(Link)`
       color: var(--primary-500);
       margin-bottom: 0.3rem;
       font-size: 2.2rem;
+      transition: all 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        scale: 1.2;
+      }
     }
   }
   .text-group {
@@ -110,6 +131,7 @@ const Wrapper = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
   }
 `
 

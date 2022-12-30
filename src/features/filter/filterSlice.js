@@ -23,7 +23,17 @@ const filterSlice = createSlice({
   reducers: {
     getProducts: (state, { payload }) => {
       state.allProducts = payload
-      state.filteredProducts = payload
+
+      let tempProducts = [...payload]
+      const { category } = state.filters
+      if (category && category.toLowerCase() !== "all") {
+        tempProducts = tempProducts.filter(
+          (product) => product.category === category
+        )
+      }
+      state.filteredProducts = tempProducts
+
+      // state.filteredProducts = payload
       state.filters.price = Math.max(...payload.map((product) => product.price))
       state.filters.maxPrice = Math.max(
         ...payload.map((product) => product.price)
@@ -69,7 +79,6 @@ const filterSlice = createSlice({
       state.filters[payload.name] = payload.value
     },
     clearFilter: (state) => {
-      console.log("clear")
       state.filters = {
         ...state.filters,
         text: "",
@@ -82,8 +91,7 @@ const filterSlice = createSlice({
     },
     filterProducts: (state) => {
       let tempProducts = [...state.allProducts]
-      const { text, brand, sex, category, color, minPrice, maxPrice, price } =
-        state.filters
+      const { text, brand, sex, category, color, price } = state.filters
 
       if (text) {
         tempProducts = tempProducts.filter(
@@ -97,6 +105,10 @@ const filterSlice = createSlice({
         tempProducts = tempProducts.filter(
           (product) => product.category === category
         )
+      }
+
+      if (sex && sex.toLowerCase() !== "all") {
+        tempProducts = tempProducts.filter((product) => product.sex === sex)
       }
 
       if (brand && brand.toLowerCase() !== "all") {

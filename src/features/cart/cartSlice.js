@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import {
   getCartFromLocalStorage,
-  removeCartToLocalStorage,
+  removeCartFromLocalStorage,
   setCartItemToLocalStorage,
 } from "../../utils/localStorage"
 
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cart = []
-      removeCartToLocalStorage()
+      removeCartFromLocalStorage()
     },
     selectCartItem: (state, { payload }) => {
       state.cart = state.cart.map((cartItem) =>

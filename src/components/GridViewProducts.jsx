@@ -6,7 +6,7 @@ const GridViewProducts = ({ products }) => {
   return (
     <Wrapper>
       {products.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </Wrapper>
   )

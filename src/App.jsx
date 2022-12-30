@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 import {
   HomePage,
   ProductsPage,
+  ProductInGenderPage,
   SingleProductPage,
   FavoritePage,
   CartPage,
@@ -32,6 +33,15 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="products" element={<ProductsPage />} />
         <Route path="products/:id" element={<SingleProductPage />} />
+        <Route
+          path="products/men"
+          element={<ProductInGenderPage sex="men" />}
+        />
+        <Route
+          path="products/women"
+          element={<ProductInGenderPage sex="women" />}
+        />
+
         <Route path="favorite" element={<FavoritePage />} />
         <Route path="cart" element={<CartPage />} />
         <Route

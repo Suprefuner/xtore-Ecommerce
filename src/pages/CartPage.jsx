@@ -22,8 +22,8 @@ const CartPage = () => {
   if (cart.length < 1) {
     return (
       <EmptyWrapper className="height-100">
-        <PageHero title="cart" />
-        <div className="empty">
+        <PageHero />
+        <div className="section-center">
           <h2>Nothing in cart yet</h2>
           <Link to="/products" className="btn btn--fill-primary">
             go fill it
@@ -35,7 +35,7 @@ const CartPage = () => {
 
   return (
     <Wrapper>
-      <PageHero title="cart" />
+      <PageHero />
       {modal.isOpen ? (
         <div className="modal">
           <CartModal />
@@ -47,8 +47,9 @@ const CartPage = () => {
 }
 
 const EmptyWrapper = styled.main`
-  .empty {
-    text-align: center;
+  .section-center {
+    gap: 2rem;
+    margin-top: 5rem;
   }
 `
 

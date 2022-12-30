@@ -12,7 +12,26 @@ import SingleProductPage from "./SingleProductPage"
 
 const HomePage = () => {
   const { user } = useSelector((store) => store.user)
+  const { products } = useSelector((store) => store.products)
   const [email, setEmail] = useState(user ? user.email : "")
+
+  const getTrendingProducts = (products) => {
+    if (user && user === "mr.") {
+      return products.filter(
+        (product) => product.sex === "men" && product.stars >= 4
+      )
+    }
+
+    if (user && user !== "mr.") {
+      return products.filter(
+        (product) => product.sex === "women" && product.stars >= 4
+      )
+    }
+
+    return products.filter((product) => product.stars >= 4)
+  }
+
+  let trendingProducts = getTrendingProducts(products)
 
   const handleChange = (e) => {
     setEmail()
@@ -47,7 +66,7 @@ const HomePage = () => {
               <button className="btn btn--fill-primary">shop now</button>
             </Link>
           </div>
-          <Slider />
+          <Slider products={trendingProducts.slice(0, 6)} />
         </section>
         <section className="col-2">
           <div className="info">
@@ -67,6 +86,7 @@ const HomePage = () => {
                 name="_replyto"
                 value={email}
                 onChange={handleChange}
+                placeholder="your email here"
               />
               <button className="btn btn--fill-black">get email</button>
             </form>

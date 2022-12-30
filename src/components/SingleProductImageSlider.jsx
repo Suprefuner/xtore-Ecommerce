@@ -1,8 +1,17 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSelector } from "react-redux"
 import styled from "styled-components"
+import { FaRegHeart, FaHeart } from "react-icons/fa"
 
-const SingleProductImageSlider = ({ images }) => {
+const SingleProductImageSlider = ({ images, id }) => {
   const [mainImage, setMainImage] = useState(images[0])
+  const [favorite, setFavorite] = useState(false)
+
+  const { favorites } = useSelector((store) => store.favorite)
+
+  useEffect(() => {
+    setFavorite(!!favorites.find((products) => products.id === id))
+  }, [])
 
   return (
     <Wrapper>
@@ -19,6 +28,7 @@ const SingleProductImageSlider = ({ images }) => {
       </div>
       <div className="mainImage">
         <img src={mainImage.url} alt="product main image" />
+        <div className="icon">{favorite ? <FaHeart /> : <FaRegHeart />}</div>
       </div>
     </Wrapper>
   )
@@ -60,6 +70,16 @@ const Wrapper = styled.div`
 
   .mainImage {
     width: 75%;
+    position: relative;
+  }
+
+  .icon {
+    --padding: 2rem;
+    position: absolute;
+    top: var(--padding);
+    right: var(--padding);
+    font-size: 3rem;
+    color: var(--primary-500);
   }
 `
 

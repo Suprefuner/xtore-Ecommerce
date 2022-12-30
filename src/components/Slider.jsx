@@ -1,14 +1,12 @@
 import React from "react"
 import ProductCard from "./ProductCard"
 import styled from "styled-components"
-import { useSelector } from "react-redux"
 
-const Slider = () => {
-  const { trendingProducts } = useSelector((store) => store.products)
+const Slider = ({ products }) => {
   return (
     <Wrapper>
-      {trendingProducts.map((product) => (
-        <ProductCard key={product.id} {...product} />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </Wrapper>
   )

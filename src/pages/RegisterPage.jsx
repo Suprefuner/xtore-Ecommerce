@@ -10,7 +10,7 @@ import {
   resetPassword,
 } from "../features/user/userSlice"
 
-import { FormRow } from "../components"
+import { FormRow, Loading } from "../components"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
 import { FaGoogle } from "react-icons/fa"
 import { toast } from "react-toastify"
@@ -37,11 +37,7 @@ const RegisterPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user) {
-      setTimeout(() => {
-        navigate("/")
-      }, 1000)
-    }
+    if (user) navigate("/")
   }, [user])
 
   const handleLoginWithGoogle = (navigate) => {
@@ -77,18 +73,19 @@ const RegisterPage = () => {
   }
 
   const handleChange = (e) => {
-    setFormData((prev) => {
-      if (e.target.files) {
-        console.log(e.target.files[0])
-        return { ...prev, profileImg: e.target.files[0] }
-      }
-
-      return { ...prev, [e.target.name]: e.target.value }
-    })
+    setFormData((prev) =>
+      e.target.files
+        ? { ...prev, profileImg: e.target.files[0] }
+        : { ...prev, [e.target.name]: e.target.value }
+    )
   }
 
   // RETURN JSX ------------------------------------------------
   // SECTION
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
     <Wrapper>
       <div className="container">
@@ -124,7 +121,7 @@ const RegisterPage = () => {
           {formMode === "sign up" ? (
             <>
               <FormRow
-                type="text"
+                type="select"
                 name="title"
                 value={title}
                 handleChange={handleChange}
@@ -154,6 +151,7 @@ const RegisterPage = () => {
               <FormRow
                 type="file"
                 name="profileImg"
+                labelText="profile picture"
                 handleChange={handleChange}
                 accept=".jpg, .png, .jpeg"
               />
