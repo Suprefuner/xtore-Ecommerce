@@ -250,38 +250,6 @@ const Wrapper = styled.main`
     gap: 1rem;
   }
 
-  .size-list {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-
-    li {
-      --size: 4rem;
-      width: var(--size);
-      height: var(--size);
-
-      line-height: var(--size);
-      text-align: center;
-      border: 1px solid var(--grey-300);
-      user-select: none;
-      cursor: pointer;
-    }
-
-    li.active {
-      color: white;
-      background-color: var(--primary-300);
-      border: none;
-    }
-
-    li.disable {
-      color: var(--grey-300);
-      background-color: var(--grey-50);
-      position: relative;
-      cursor: not-allowed;
-    }
-  }
-
   .message {
     color: red;
   }
