@@ -131,12 +131,16 @@ export const registerUser = createAsyncThunk(
       })
 
       const { user } = userCredential
-      const photoURL = await Promise.resolve(storeImage(profileImg)).catch(
-        (err) => {
-          toast.error("image not uploaded")
-          return
-        }
-      )
+      let photoURL = ""
+
+      if (profileImg) {
+        photoURL = await Promise.resolve(storeImage(profileImg)).catch(
+          (err) => {
+            toast.error("image not uploaded")
+            return
+          }
+        )
+      }
 
       const formCopy = {
         ...formData,

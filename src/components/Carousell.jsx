@@ -4,9 +4,6 @@ import "swiper/css/pagination"
 import "swiper/css/navigation"
 import { Pagination, Navigation, Autoplay } from "swiper"
 import styled from "styled-components"
-// import carousellImg1 from "../assets/images/home/slider-1.jpg"
-// import carousellImg2 from "../assets/images/home/slider-2.jpg"
-// import carousellImg3 from "../assets/images/home/slider-3.jpg"
 import { sliderImgs } from "../utils/constants"
 
 export default function Carousell() {

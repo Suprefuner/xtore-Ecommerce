@@ -7,8 +7,7 @@ import shopWomenImg from "../assets/images/home/shop-women.jpg"
 import emailImg from "../assets/images/home/contact.png"
 import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs"
 
-import { useSelector, useDispatch } from "react-redux"
-import SingleProductPage from "./SingleProductPage"
+import { useSelector } from "react-redux"
 
 const HomePage = () => {
   const { user } = useSelector((store) => store.user)
@@ -67,6 +66,7 @@ const HomePage = () => {
             </Link>
           </div>
           <Slider products={trendingProducts.slice(0, 6)} />
+          {/* <TestSlider products={trendingProducts.slice(0, 6)} /> */}
         </section>
         <section className="col-2">
           <div className="info">

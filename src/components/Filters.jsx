@@ -50,7 +50,7 @@ const Filters = () => {
           />
         </div>
         <div className="form-control control-categories">
-          <h5>Sex</h5>
+          <h5>Gender</h5>
           {sexes.map((s, i) => (
             <button
               key={i}

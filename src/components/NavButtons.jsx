@@ -11,6 +11,7 @@ const NavButtons = () => {
   const { user } = useSelector((store) => store.user)
   const { favorites } = useSelector((store) => store.favorite)
   const { totalItems } = useSelector((store) => store.cart)
+  const { profileImg, profileColor, firstName, lastName } = user
 
   return (
     <Wrapper
@@ -21,14 +22,14 @@ const NavButtons = () => {
     >
       {user ? (
         <Link to="/profile">
-          {user.profileImg ? (
-            <img
-              src={user.profileImg}
-              alt="user's photo"
-              className="profile-img"
-            />
+          {profileImg ? (
+            <img src={profileImg} alt="user's photo" className="profile-img" />
           ) : (
-            <div className="profile-img"></div>
+            <ProfileBG className="profile-img" bgColor={profileColor}>
+              {firstName
+                ? `${firstName[0]}${lastName[0]}`
+                : `${lastName.slice(0, 2).toUpperCase()}`}
+            </ProfileBG>
           )}
         </Link>
       ) : (
@@ -92,7 +93,6 @@ const Wrapper = styled.div`
     --size: 3rem;
     width: var(--size);
     height: var(--size);
-    background-color: pink;
     outline: 3px solid var(--primary-300);
     border-radius: 50%;
   }
@@ -135,9 +135,17 @@ const Wrapper = styled.div`
     transform: translate(0, 100%);
 
     width: clamp(35rem, 40vw, 40rem);
-    /* width: 40vw; */
     height: auto;
   }
+`
+
+const ProfileBG = styled.div`
+  color: white;
+  font-size: 1.4rem;
+  font-weight: var(--fw-semi);
+  text-align: center;
+  line-height: 3rem;
+  background-color: ${(props) => props.bgColor};
 `
 
 export default NavButtons
