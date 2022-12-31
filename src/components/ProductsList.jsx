@@ -1,13 +1,30 @@
-import { useSelector } from "react-redux"
+import { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import GridViewProducts from "./GridViewProducts"
 import ListViewProducts from "./ListViewProducts"
 import Loading from "./Loading"
+import { updatePage } from "../features/filter/filterSlice"
 
 const ProductsList = () => {
   const { isLoading } = useSelector((store) => store.products)
-  const { filteredProducts: products, gridView } = useSelector(
-    (store) => store.filter
-  )
+  const {
+    filteredProducts: products,
+    gridView,
+    page,
+    productsPerPage,
+  } = useSelector((store) => store.filter)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const event = window.addEventListener("scroll", () => {
+      if (
+        !isLoading &&
+        window.innerHeight + window.scrollY >= document.body.scrollHeight
+      )
+        dispatch(updatePage())
+    })
+    return () => window.removeEventListener("scroll", event)
+  }, [])
 
   if (isLoading) {
     return (
@@ -18,7 +35,6 @@ const ProductsList = () => {
   }
 
   if (products.length < 1) {
-    // return <h5>Sorry, no products matched your search...</h5>
     return (
       <div className="section-center">
         <h3 style={{ marginTop: "10rem" }}>
@@ -28,9 +44,18 @@ const ProductsList = () => {
     )
   }
 
-  if (gridView) return <GridViewProducts products={products} />
+  if (gridView)
+    return (
+      <GridViewProducts
+        products={products.slice(0, productsPerPage * (page + 1))}
+      />
+    )
 
-  return <ListViewProducts products={products} />
+  return (
+    <ListViewProducts
+      products={products.slice(0, productsPerPage * (page + 1))}
+    />
+  )
 }
 
 export default ProductsList

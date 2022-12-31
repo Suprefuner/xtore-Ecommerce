@@ -4,6 +4,7 @@ import {
   updateFilter,
   clearFilter,
   filterProducts,
+  updatePage,
 } from "../features/filter/filterSlice"
 import styled from "styled-components"
 import {
@@ -34,6 +35,7 @@ const Filters = () => {
     if (name === "price") value = +e.target.value
     dispatch(updateFilter({ name, value }))
     dispatch(filterProducts())
+    dispatch(updatePage(1))
   }
 
   return (

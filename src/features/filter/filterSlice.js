@@ -3,6 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 const initialState = {
   allProducts: [],
   filteredProducts: [],
+  page: 0,
+  numberOfPages: 0,
+  productsPerPage: 9,
   gridView: true,
   sort: "price-lowest",
   filters: {
@@ -39,8 +42,10 @@ const filterSlice = createSlice({
       }
 
       state.filteredProducts = tempProducts
+      state.numberOfPages = Math.ceil(
+        tempProducts.length / state.productsPerPage
+      )
 
-      // state.filteredProducts = payload
       state.filters.price = Math.max(...payload.map((product) => product.price))
       state.filters.maxPrice = Math.max(
         ...payload.map((product) => product.price)
@@ -134,6 +139,9 @@ const filterSlice = createSlice({
 
       state.filteredProducts = tempProducts
     },
+    updatePage: (state, { payload }) => {
+      state.page = payload ? 0 : state.page + 1
+    },
   },
 })
 
@@ -146,5 +154,6 @@ export const {
   updateFilter,
   clearFilter,
   filterProducts,
+  updatePage,
 } = filterSlice.actions
 export default filterSlice.reducer
