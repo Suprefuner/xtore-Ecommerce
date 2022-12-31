@@ -11,7 +11,7 @@ const NavButtons = () => {
   const { user } = useSelector((store) => store.user)
   const { favorites } = useSelector((store) => store.favorite)
   const { totalItems } = useSelector((store) => store.cart)
-  const { profileImg, profileColor, firstName, lastName } = user
+  // const { profileImg, profileColor, firstName, lastName } = user
 
   return (
     <Wrapper
@@ -22,13 +22,17 @@ const NavButtons = () => {
     >
       {user ? (
         <Link to="/profile">
-          {profileImg ? (
-            <img src={profileImg} alt="user's photo" className="profile-img" />
+          {user.profileImg ? (
+            <img
+              src={user.profileImg}
+              alt="user's photo"
+              className="profile-img"
+            />
           ) : (
-            <ProfileBG className="profile-img" bgColor={profileColor}>
-              {firstName
-                ? `${firstName[0]}${lastName[0]}`
-                : `${lastName.slice(0, 2).toUpperCase()}`}
+            <ProfileBG className="profile-img" bgColor={user.profileColor}>
+              {user.firstName
+                ? `${user.firstName[0]}${user.lastName[0]}`
+                : `${user.lastName.slice(0, 2).toUpperCase()}`}
             </ProfileBG>
           )}
         </Link>
