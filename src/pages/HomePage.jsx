@@ -1,11 +1,10 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import { Carousell, Slider } from "../components"
+import { Carousell, Slider, SocialMediaLinks } from "../components"
 import styled from "styled-components"
 import shopMenImg from "../assets/images/home/shop-men.jpg"
 import shopWomenImg from "../assets/images/home/shop-women.jpg"
 import emailImg from "../assets/images/home/contact.png"
-import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs"
 
 import { useSelector } from "react-redux"
 
@@ -43,6 +42,10 @@ const HomePage = () => {
           <Carousell />
         </section>
         <section className="col-2">
+          <div className="text mobile">
+            <h2>shop by gender</h2>
+            <p>On sale now, get ready for 2023 </p>
+          </div>
           <div className="shop-visual shop--men">
             <img src={shopMenImg} alt="stylish men model" />
             <span>men</span>
@@ -58,7 +61,7 @@ const HomePage = () => {
             </Link>
           </div>
         </section>
-        <section>
+        <section className="section--trending">
           <div className="section-header">
             <h2 className="title">trending</h2>
             <Link to="/products">
@@ -66,7 +69,6 @@ const HomePage = () => {
             </Link>
           </div>
           <Slider products={trendingProducts.slice(0, 6)} />
-          {/* <TestSlider products={trendingProducts.slice(0, 6)} /> */}
         </section>
         <section className="col-2">
           <div className="info">
@@ -90,25 +92,11 @@ const HomePage = () => {
               />
               <button className="btn btn--fill-black">get email</button>
             </form>
-            <ul className="social-media-links">
-              <li>
-                <a href="#">
-                  <BsFacebook />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <BsInstagram />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <BsTwitter />
-                </a>
-              </li>
-            </ul>
+            <div className="tablet">
+              <SocialMediaLinks />
+            </div>
           </div>
-          <div>
+          <div className="desktop">
             <img src={emailImg} alt="illustration men" />
           </div>
         </section>
@@ -120,12 +108,22 @@ const HomePage = () => {
 const Wrapper = styled.main`
   /* GENERAL SETTING --------------------- */
   .col-2 {
-    display: flex;
-    align-items: center;
-    gap: 5rem;
+    @media (min-width: 641px) {
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+    }
   }
   .col-2 > * {
-    width: 50%;
+    @media (min-width: 641px) {
+      width: 50%;
+    }
+  }
+
+  section {
+    @media (max-width: 640px) {
+      margin-inline: -3rem;
+    }
   }
 
   section:not(:last-child) {
@@ -133,31 +131,75 @@ const Wrapper = styled.main`
     border-bottom: 1px solid var(--black);
   }
 
+  section:first-child {
+    padding-block: 3rem;
+    border-bottom: 1px solid var(--black);
+
+    @media (max-width: 640px) {
+      padding-block: 0;
+      border-bottom: none;
+    }
+  }
+
   /* MEN & WOMEN SECTION --------------------- */
+
+  .text {
+    padding-inline: 2rem;
+    margin-bottom: 2rem;
+
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+  }
+
   .shop-visual {
     position: relative;
     overflow: hidden;
 
+    @media (max-width: 640px) {
+      margin-bottom: 8rem;
+      overflow: visible;
+    }
+
     img {
       transition: 0.3s;
+
+      @media (max-width: 640px) {
+        height: 250px;
+      }
     }
 
     &:hover img {
-      scale: 1.2;
+      @media (min-width: 641px) {
+        scale: 1.2;
+      }
     }
 
     button {
       width: 15rem;
       position: absolute;
       bottom: 2rem;
-    }
 
-    &:first-child button {
-      left: 2rem;
+      @media (max-width: 640px) {
+        bottom: 0rem;
+        transform: translateY(calc(100% + 1.5rem));
+      }
     }
 
     &:nth-child(2) button {
+      left: 2rem;
+
+      @media (max-width: 640px) {
+        left: auto;
+        right: 2rem;
+      }
+    }
+
+    &:nth-child(3) button {
       right: 2rem;
+      @media (max-width: 640px) {
+        right: 2rem;
+      }
     }
 
     span {
@@ -172,18 +214,50 @@ const Wrapper = styled.main`
       text-transform: uppercase;
       text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
       user-select: none;
+
+      @media (max-width: 640px) {
+        color: black;
+        top: auto;
+        left: 2rem;
+        bottom: -0.75rem;
+        transform: translate(0, 100%);
+        font-size: 5rem;
+      }
     }
   }
 
   /* TRENDING SECTION --------------------- */
+  .section--trending {
+    @media (max-width: 640px) {
+      padding-inline: 2rem;
+
+      button {
+        background-color: transparent;
+        color: black;
+        padding: 0;
+        padding-right: 1rem;
+        padding-bottom: 1rem;
+      }
+    }
+  }
+
   .section-header {
     display: flex;
     align-items: center;
     gap: 4rem;
     margin-bottom: 3rem;
 
+    @media (max-width: 640px) {
+      justify-content: space-between;
+      align-items: end;
+    }
+
     .title {
       font-size: 8rem;
+
+      @media (max-width: 640px) {
+        font-size: 6rem;
+      }
     }
   }
 
@@ -191,6 +265,10 @@ const Wrapper = styled.main`
   .info {
     display: grid;
     gap: 3rem;
+
+    @media (max-width: 640px) {
+      margin-top: 3rem;
+    }
 
     .text {
       display: grid;
@@ -201,8 +279,18 @@ const Wrapper = styled.main`
       display: flex;
       gap: 2rem;
 
+      @media (max-width: 640px) {
+        display: grid;
+        padding-inline: 2rem;
+        padding-bottom: 3rem;
+      }
+
       .btn {
         width: 20rem;
+
+        @media (max-width: 640px) {
+          width: 100%;
+        }
       }
     }
   }

@@ -14,6 +14,7 @@ const initialFilter = {
 
 const initialState = {
   isLoading: false,
+  isSidebarOpen: false,
   products: [],
   trendingProducts: [],
   totalProducts: 0,
@@ -47,6 +48,9 @@ const productsSlice = createSlice({
           ? { ...product, favorite: !product.favorite }
           : product
       )
+    },
+    toggleSidebar: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen
     },
   },
   extraReducers: (builder) => {
@@ -83,9 +87,6 @@ const productsSlice = createSlice({
           }
         })
         state.totalProducts = payload.length
-        // state.trendingProducts = state.products.filter(
-        //   (product) => product.stars >= 4
-        // )
         state.numOfPages = Math.ceil(payload.length / itemsPerPage)
         state.page = 1
         state.isLoading = false
@@ -97,5 +98,5 @@ const productsSlice = createSlice({
   },
 })
 
-export const { toggleFavorite } = productsSlice.actions
+export const { toggleFavorite, toggleSidebar } = productsSlice.actions
 export default productsSlice.reducer

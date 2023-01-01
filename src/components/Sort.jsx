@@ -24,7 +24,7 @@ const Sort = () => {
 
   return (
     <Wrapper>
-      <div className="buttons">
+      <div className="buttons desktop">
         <button
           className={`${gridView ? "active" : null}`}
           onClick={() => dispatch(setGridView())}
@@ -39,9 +39,11 @@ const Sort = () => {
         </button>
       </div>
       <p>{products.length} products found</p>
-      <hr />
+      <hr className="desktop" />
       <form>
-        <label htmlFor="sort">sort by</label>
+        <label htmlFor="sort" className="desktop">
+          sort by
+        </label>
         <select name="sort" id="sort" value={sort} onChange={handleChange}>
           <option value="price-lowest">price(lowest)</option>
           <option value="price-highest">price(highest)</option>
@@ -59,6 +61,10 @@ const Wrapper = styled.div`
   grid-template-columns: auto auto 1fr auto;
   gap: 2rem;
   margin-bottom: 3rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   button {
     --size: 3rem;

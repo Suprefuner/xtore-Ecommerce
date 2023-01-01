@@ -23,6 +23,8 @@ const CartList = ({ setListShow }) => {
           </div>
         ) : null}
       </div>
+
+      {/* RENDER CART ITEMS ------------------------------- */}
       {listOpen && cart.length > 0 && (
         <div className="list">
           {cart.map((cartItem) => (
@@ -30,6 +32,8 @@ const CartList = ({ setListShow }) => {
           ))}
         </div>
       )}
+
+      {/* IF THERE IS NO ITEM IN CART ------------------------------- */}
       {listOpen && cart.length === 0 && (
         <div className="section-center">
           <h2>Nothing in cart yet</h2>
@@ -43,6 +47,7 @@ const CartList = ({ setListShow }) => {
         </div>
       )}
 
+      {/* RENDER BUTTONS BASE ON CONDITIONS ------------------------------- */}
       {setListShow && cart.length > 0 ? (
         <div className={`buttons ${user ? "grid-col-2" : ""}`}>
           <Link to="/cart">

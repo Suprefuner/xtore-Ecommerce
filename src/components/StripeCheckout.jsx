@@ -102,7 +102,12 @@ const CheckoutForm = () => {
         </article>
       ) : (
         <article>
-          <h4>Hello{user ? `, ${user.name}` : null}</h4>
+          <h4>
+            Hello
+            {user.firstName
+              ? `, ${user.FirstName} ${user.lastName}`
+              : `, ${user.lastName}`}
+          </h4>
           <p>your total is {formatPrice(shippingFee + totalAmount)}</p>
           <p>test card number: 4242 4242 4242 4242</p>
         </article>
@@ -175,6 +180,10 @@ const Layout = styled.section`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
   }
 `
 

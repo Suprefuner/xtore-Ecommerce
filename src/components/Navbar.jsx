@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 import logoLg from "../assets/images/xtore_logo-lg.svg"
+import logoSm from "../assets/images/xtore_logo-sm.svg"
 import NavButtons from "./NavButtons"
 import { links } from "../utils/constants"
 
@@ -13,10 +14,11 @@ const Navbar = () => {
         <div className="logo-container">
           <Link to="/">
             <img src={logoLg} alt="xtore logo" className="desktop" />
+            <img src={logoSm} alt="xtore logo" className="mobile" />
           </Link>
         </div>
 
-        <ul>
+        <ul className="nav-list">
           {links.map(({ id, text, url }) => (
             <li key={id}>
               <Link to={url}>{text}</Link>
@@ -51,21 +53,21 @@ const Wrapper = styled.nav`
     margin-block: 0;
   }
 
-  .logo-container {
-    /* padding-block: 1.5rem; */
-  }
+  .nav-list {
+    display: flex;
+    gap: 3rem;
 
-  ul {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    display: flex;
-    gap: 3rem;
-
     font-size: 1.8rem;
     text-transform: capitalize;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
   }
 `
 

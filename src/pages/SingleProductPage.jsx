@@ -165,7 +165,6 @@ const SingleProductPage = () => {
                   buy now
                 </button>
               </Link>
-              {/* <Link to="/cart"> */}
               <button
                 className={`btn ${
                   soldOut ? "btn--disable" : "btn--fill-black"
@@ -175,11 +174,10 @@ const SingleProductPage = () => {
               >
                 add to cart
               </button>
-              {/* </Link> */}
             </div>
           </div>
         </section>
-        <section>
+        <section className="section--description">
           <div className="description">
             <h3>detail</h3>
             <ul>
@@ -197,6 +195,12 @@ const SingleProductPage = () => {
 const Wrapper = styled.main`
   text-transform: capitalize;
 
+  .container {
+    @media (max-width: 640px) {
+      padding-inline: 2rem;
+    }
+  }
+
   section {
     padding-block: 3rem;
   }
@@ -208,6 +212,11 @@ const Wrapper = styled.main`
 
     height: 48rem;
     border-bottom: 1px solid var(--black);
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
   }
 
   .info {
@@ -258,21 +267,22 @@ const Wrapper = styled.main`
     margin-left: -1rem;
   }
   .buttons {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 3rem;
-
-    & > * {
-      flex: 1;
-    }
 
     & button {
       width: 100%;
+      height: 100%;
     }
   }
 
   .description {
     padding-left: 2rem;
+
+    @media (max-width: 640px) {
+      padding-left: 0;
+    }
 
     h3 {
       margin-bottom: 2rem;
@@ -282,6 +292,11 @@ const Wrapper = styled.main`
       list-style: initial;
       columns: 2;
       padding-inline: 3rem;
+
+      @media (max-width: 640px) {
+        padding-inline: 2rem;
+        font-size: 1.4rem;
+      }
 
       li {
         margin-bottom: 0.5rem;

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { formatPrice } from "../utils/helpers"
 import { QtyController } from "../components"
 import { FaTrash } from "react-icons/fa"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import {
   selectCartItem,
   openModal,
@@ -50,6 +50,7 @@ const CartItem = ({ cartItem }) => {
       />
       <div className="item-detail">
         <div className="img-container">
+          {/* FIXME */}
           <img src={images[0].url} alt="product image" />
         </div>
         <div className="info">
@@ -83,7 +84,7 @@ const CartItem = ({ cartItem }) => {
       </div>
       <div className="item-subtotal">{formatPrice(price * quantity)}</div>
 
-      <div onClick={() => dispatch(openModal(id))}>
+      <div onClick={() => dispatch(openModal(id))} className="icon">
         <FaTrash />
       </div>
     </Wrapper>
@@ -95,7 +96,7 @@ const Wrapper = styled.div`
   --fromTop: 2rem;
   --height: 18rem;
   --padding-block: 3rem;
-  /* VARIABLES -------------------------*/
+  /* -----------------------------------*/
 
   height: var(--height);
   padding-block: var(--padding-block);
@@ -104,6 +105,9 @@ const Wrapper = styled.div`
   grid-template-columns: 3vw 35rem 9rem 1fr 11rem 3vw;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 640px) {
+  }
 
   & > *:not(:nth-child(n + 2):nth-child(-n + 3)) {
     justify-self: center;
@@ -163,6 +167,15 @@ const Wrapper = styled.div`
       scale: 0.8;
     }
   }
+
+  .icon {
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      color: var(--red-dark);
+    }
+  }
 `
 
 const Color = styled.div`
@@ -170,6 +183,7 @@ const Color = styled.div`
   width: var(--size);
   height: var(--size);
   background-color: ${(props) => props.fillColor};
+  border: 1px solid var(--grey-300);
   border-radius: 50%;
 `
 

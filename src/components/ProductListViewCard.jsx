@@ -71,7 +71,7 @@ const ProductListViewCard = ({ product }) => {
           )}
         </div>
         <div className="text-row">
-          <ul className="description">
+          <ul>
             {description
               .split(",")
               .slice(2, 6)

@@ -8,7 +8,7 @@ const CheckoutPage = () => {
   const { cart } = useSelector((store) => store.cart)
 
   return (
-    <main style={{ height: "calc(100vh - 7rem - 154px)" }}>
+    <main style={{ minHeight: "calc(100vh - 7rem - 154px)" }}>
       <PageHero />
       <Wrapper>
         {cart.length < 1 ? (
@@ -25,10 +25,9 @@ const CheckoutPage = () => {
 }
 
 const Wrapper = styled.div`
-  height: 100%;
   display: flex;
   justify-content: center;
-  padding-top: 3rem;
+  padding-block: 3rem;
 
   .empty {
     text-align: center;

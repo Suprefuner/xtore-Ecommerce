@@ -17,7 +17,7 @@ import {
   RegisterPage,
   ProfilePage,
 } from "./pages"
-import { Navbar, Footer, Error } from "./components"
+import { Navbar, Sidebar, Footer, Error } from "./components"
 
 function App() {
   const dispatch = useDispatch()
@@ -29,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <Sidebar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="products" element={<ProductsPage />} />

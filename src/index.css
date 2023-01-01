@@ -33,7 +33,7 @@
   --black: #222;
   --white: #fff;
   --red-light: #f8d7da;
-  --red-dark: #842029;
+  --red-dark: #c5212f;
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
 
@@ -239,12 +239,6 @@ input:focus {
   background-color: black;
 }
 
-/* .btn--stroke:active {
-  color: white;
-  background-color: black;
-  scale: 0.9;
-} */
-
 .btn--fill-black {
   color: white;
   background-color: var(--black);
@@ -268,6 +262,20 @@ input:focus {
   background-color: var(--grey-50);
   border: 1px solid var(--grey-100);
   cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .mobile {
+    display: block;
+  }
+
+  .tablet {
+    display: none;
+  }
+
+  .desktop {
+    display: none;
+  }
 }
 
 @media (max-width: 639px) {

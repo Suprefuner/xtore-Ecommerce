@@ -6,12 +6,9 @@ import { PageHero, CartContent } from "../components"
 import { CartModal } from "../components"
 import { setCartItemToLocalStorage } from "../utils/localStorage"
 import { countCartTotal } from "../features/cart/cartSlice"
-import { formatPrice } from "../utils/helpers"
 
 const CartPage = () => {
-  const { cart, totalAmount, totalItem, modal } = useSelector(
-    (store) => store.cart
-  )
+  const { cart, modal } = useSelector((store) => store.cart)
   const dispatch = useDispatch()
 
   useEffect(() => {

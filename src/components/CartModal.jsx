@@ -36,6 +36,11 @@ const Wrapper = styled.div`
   background-color: var(--white);
   border: 1px solid var(--black);
 
+  @media (max-width: 640px) {
+    width: 90vw;
+    padding: 4rem 2rem;
+  }
+
   p {
     font-size: 2rem;
     margin-bottom: 5rem;

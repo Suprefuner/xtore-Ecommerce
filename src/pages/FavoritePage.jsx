@@ -1,11 +1,9 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-// import { getFavorite } from "../features/favorite/favoriteSlice"
 import { FavoriteFilter } from "../components"
 import styled from "styled-components"
-import { PageHero, ProductCard } from "../components"
+import { PageHero, ProductCard, MobileProductCard } from "../components"
 import { getProducts } from "../features/favorite/favoriteSlice"
-import { getFavoriteFromLocalStorage } from "../utils/localStorage"
 
 const FavoritePage = () => {
   const { products } = useSelector((store) => store.products)
@@ -22,9 +20,14 @@ const FavoritePage = () => {
       <PageHero />
       <Wrapper className="container">
         <FavoriteFilter />
-        <section>
+        <section className="section--desktop">
           {filteredFavorites.map((product) => (
             <ProductCard key={product.id} product={product} />
+          ))}
+        </section>
+        <section className="mobile">
+          {filteredFavorites.map((product) => (
+            <MobileProductCard key={product.id} product={product} />
           ))}
         </section>
       </Wrapper>
@@ -37,10 +40,17 @@ const Wrapper = styled.div`
 
   section {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    justify-items: center;
     row-gap: 3rem;
     padding-block: 3rem;
+  }
+
+  .section--desktop {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    justify-items: center;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
   }
 `
 

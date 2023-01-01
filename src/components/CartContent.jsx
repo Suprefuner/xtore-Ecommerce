@@ -9,6 +9,7 @@ import {
   clearCart,
   removeSelectedItem,
 } from "../features/cart/cartSlice"
+import MobileCartItem from "./MobileCartItem"
 
 const CartContent = () => {
   const { cart, totalAmount, allSelected } = useSelector((store) => store.cart)
@@ -37,9 +38,16 @@ const CartContent = () => {
         <span>subtotal</span>
       </div>
       <div className="table-body">
-        {cart.map((cartItem) => (
-          <CartItem key={cartItem.id} cartItem={cartItem} checked />
-        ))}
+        <div className="desktop">
+          {cart.map((cartItem) => (
+            <CartItem key={cartItem.id} cartItem={cartItem} checked />
+          ))}
+        </div>
+        <div className="mobile">
+          {cart.map((cartItem) => (
+            <MobileCartItem key={cartItem.id} cartItem={cartItem} />
+          ))}
+        </div>
       </div>
       <div className="table-footer">
         <input
@@ -91,6 +99,7 @@ const CartContent = () => {
 
 const Wrapper = styled.div`
   padding-bottom: 5rem;
+  overflow: hidden;
   .table-head {
     display: grid;
 
@@ -98,6 +107,10 @@ const Wrapper = styled.div`
     gap: 2rem;
     padding-block: 1rem;
     border-bottom: 1px solid var(--black);
+
+    @media (max-width: 640px) {
+      display: none;
+    }
 
     & > *:not(:nth-child(n + 2):nth-child(-n + 3)) {
       justify-self: center;
@@ -111,25 +124,50 @@ const Wrapper = styled.div`
     & > *:not(:last-child) {
       border-bottom: 1px solid var(--grey-100);
     }
+
+    .mobile {
+      & > *:not(:last-child) {
+        border-bottom: 1px solid var(--grey-50);
+      }
+    }
   }
 
   .table-footer {
     display: grid;
     grid-template-columns: 3vw max-content max-content auto;
     align-items: center;
-    padding-block: 3rem 1rem;
-    border-top: 1px solid var(--black);
     gap: 2rem;
+
+    padding-block: 3rem 1rem;
+    text-transform: capitalize;
+    border-top: 1px solid var(--black);
+
+    @media (max-width: 640px) {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
     input {
       width: 1.5rem;
       justify-self: center;
     }
 
+    button {
+      text-transform: capitalize;
+    }
+
     .buttons {
       display: flex;
       gap: 2rem;
       margin-left: auto;
+
+      @media (max-width: 640px) {
+        grid-template-columns: 3vw max-content max-content;
+
+        & > * {
+          width: 50%;
+        }
+      }
     }
   }
 
@@ -138,6 +176,10 @@ const Wrapper = styled.div`
     margin-top: 2rem;
     margin-left: auto;
 
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+
     .cart-total-container {
       padding: 3rem;
 
@@ -145,6 +187,10 @@ const Wrapper = styled.div`
       gap: 2rem;
       border: 1px solid black;
       margin-bottom: 2rem;
+
+      @media (max-width: 640px) {
+        padding-inline: 2rem;
+      }
 
       .text-row {
         display: flex;

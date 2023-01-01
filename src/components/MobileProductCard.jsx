@@ -10,7 +10,7 @@ import {
 } from "../features/favorite/favoriteSlice"
 import { useDispatch } from "react-redux"
 
-const ProductCard = ({ product }) => {
+const MobileProductCard = ({ product }) => {
   const { name, sex, price, brand, images, id, sizeAvailable, favorite } =
     product
   const dispatch = useDispatch()
@@ -22,30 +22,6 @@ const ProductCard = ({ product }) => {
 
   const handleFavorite = () => {
     dispatch(toggleFavorite(id))
-  }
-
-  if (name === "") {
-    return (
-      <Wrapper>
-        <div className="skeleton skeleton-img"></div>
-        <div className="card-info">
-          <div className="text-row">
-            <div className="skeleton skeleton-text"></div>
-            <div className="skeleton skeleton-text"></div>
-          </div>
-          <div className="text-group">
-            <div className="skeleton skeleton-text"></div>
-            <div className="skeleton skeleton-text w-full"></div>
-          </div>
-          <div className="text-row">
-            <div className="skeleton skeleton-price"></div>
-            <div className="skeleton-icon">
-              <FaHeart />
-            </div>
-          </div>
-        </div>
-      </Wrapper>
-    )
   }
 
   return (
@@ -81,84 +57,22 @@ const ProductCard = ({ product }) => {
 }
 
 const Wrapper = styled.div`
-  --width: 22rem;
-  width: var(--width);
+  /* width: 100%; */
+  display: grid;
+  grid-template-columns: 11rem 22rem;
   border: 1px solid var(--grey-50);
   border-radius: var(--border-radius-md);
 
-  .skeleton {
-    width: var(--width);
-    height: 250px;
-    animation: skeleton-loading 1s linear infinite alternate;
-
-    &-img {
-      border-top-left-radius: var(--border-radius-md);
-      border-top-right-radius: var(--border-radius-md);
-    }
-
-    &-text {
-      height: 15px;
-      width: 30%;
-    }
-
-    &-price {
-      height: 20px;
-      width: 50%;
-    }
-
-    &-icon {
-      height: 22px;
-      width: 22px;
-      font-size: 2.2rem;
-      animation: skeleton-icon-loading 1s linear infinite alternate;
-    }
-
-    &.w-full {
-      width: 100%;
-      margin-top: 0.3rem;
-    }
-  }
-
-  @keyframes skeleton-loading {
-    0% {
-      background-color: hsl(200, 20%, 70%);
-    }
-
-    100% {
-      background-color: hsl(200, 20%, 95%);
-    }
-  }
-
-  @keyframes skeleton-icon-loading {
-    0% {
-      color: hsl(200, 20%, 70%);
-    }
-
-    100% {
-      color: hsl(200, 20%, 95%);
-    }
-  }
-
   .img-container {
-    width: var(--width);
-    height: 250px;
-    background: url(${(props) => props.backgroundImage}) top center no-repeat;
-    background-size: cover;
+    height: 100%;
 
     border-top-left-radius: var(--border-radius-md);
-    border-top-right-radius: var(--border-radius-md);
+    border-bottom-left-radius: var(--border-radius-md);
     overflow: hidden;
     cursor: pointer;
 
-    &:hover img {
-      scale: 1.1;
-    }
-
     img {
-      width: 100%;
       height: 100%;
-      object-fit: cover;
-      transition: all 0.2s;
     }
   }
 
@@ -166,6 +80,7 @@ const Wrapper = styled.div`
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1.2rem;
     text-transform: capitalize;
     font-weight: var(--fw-light);
@@ -213,4 +128,4 @@ const Wrapper = styled.div`
   }
 `
 
-export default ProductCard
+export default MobileProductCard

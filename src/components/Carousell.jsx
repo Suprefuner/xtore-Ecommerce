@@ -42,10 +42,19 @@ const Wrapper = styled.div`
   .slide {
     width: 100%;
     height: 350px;
+
+    @media (max-width: 640px) {
+      height: 300px;
+    }
   }
+
   .swiper-button-prev,
   .swiper-button-next {
     color: var(--grey-200);
+
+    @media (max-width: 640px) {
+      display: none;
+    }
   }
   .swiper-pagination {
     display: flex;

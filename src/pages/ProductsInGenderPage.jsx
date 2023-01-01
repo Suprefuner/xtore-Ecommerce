@@ -81,6 +81,15 @@ const Wrapper = styled.main`
     h2 {
       margin-bottom: 1rem;
     }
+
+    p {
+      @media (max-width: 640px) {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+      }
+    }
   }
 
   .section--slider {

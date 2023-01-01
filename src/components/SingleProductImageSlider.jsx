@@ -39,6 +39,12 @@ const Wrapper = styled.div`
   gap: 1rem;
   overflow: hidden;
 
+  @media (max-width: 640px) {
+    display: grid;
+    border-bottom: 1px solid black;
+    padding-bottom: 3rem;
+  }
+
   img {
     height: 100%;
     transition: 0.2s;
@@ -50,6 +56,12 @@ const Wrapper = styled.div`
     gap: 2rem;
     width: 25%;
     overflow-y: scroll;
+
+    @media (max-width: 640px) {
+      order: 1;
+      flex-direction: row;
+      width: 100%;
+    }
 
     &::-webkit-scrollbar {
       width: 0;
@@ -71,6 +83,10 @@ const Wrapper = styled.div`
   .mainImage {
     width: 75%;
     position: relative;
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
   }
 
   .icon {

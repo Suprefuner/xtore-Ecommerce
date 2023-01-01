@@ -1,17 +1,20 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
 import CartList from "./CartList"
+import { toggleSidebar } from "../features/products/productsSlice"
 
 import { FaUser, FaHeart, FaRegHeart, FaShoppingBag } from "react-icons/fa"
+import { FiMenu } from "react-icons/fi"
 
 const NavButtons = () => {
   const [listShow, setListShow] = useState(false)
   const { user } = useSelector((store) => store.user)
   const { favorites } = useSelector((store) => store.favorite)
   const { totalItems } = useSelector((store) => store.cart)
-  // const { profileImg, profileColor, firstName, lastName } = user
+
+  const dispatch = useDispatch()
 
   return (
     <Wrapper
@@ -41,15 +44,15 @@ const NavButtons = () => {
           <FaUser className="nav-icon" />
         </Link>
       )}
-      <Link to="/favorite">
+      <Link to="/favorite" className="desktop">
         {/* <FaHeart /> */}
         {favorites.length > 0 ? (
           <FaHeart className="nav-icon nav-icon-primary" />
         ) : (
-          <FaRegHeart className="nav-icon" />
+          <FaRegHeart className="nav-icon " />
         )}
       </Link>
-      <Link to="/cart">
+      <Link to="/cart" className="desktop">
         <div
           className="cart-container"
           onMouseOver={() => setListShow(true)}
@@ -69,6 +72,13 @@ const NavButtons = () => {
           <CartList setListShow={setListShow} />
         </div>
       ) : null}
+
+      <button
+        className="nav-icon mobile"
+        onClick={() => dispatch(toggleSidebar())}
+      >
+        <FiMenu />
+      </button>
     </Wrapper>
   )
 }
@@ -90,6 +100,10 @@ const Wrapper = styled.div`
 
     &-primary {
       color: var(--primary-500);
+    }
+
+    @media (max-width: 640px) {
+      scale: 1.3;
     }
   }
 
