@@ -65,7 +65,7 @@ const FavoriteFilter = () => {
         <div className="form-control">
           <select
             name="sex"
-            value={brand}
+            value={sex}
             onChange={handleChange}
             className="sex"
           >

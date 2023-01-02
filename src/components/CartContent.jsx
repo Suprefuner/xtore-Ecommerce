@@ -100,6 +100,11 @@ const CartContent = () => {
 const Wrapper = styled.div`
   padding-bottom: 5rem;
   overflow: hidden;
+
+  @media (max-width: 640px) {
+    padding-inline: 2rem;
+  }
+
   .table-head {
     display: grid;
 

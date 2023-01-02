@@ -25,7 +25,7 @@ const FavoritePage = () => {
             <ProductCard key={product.id} product={product} />
           ))}
         </section>
-        <section className="mobile">
+        <section className="section--mobile">
           {filteredFavorites.map((product) => (
             <MobileProductCard key={product.id} product={product} />
           ))}
@@ -49,6 +49,12 @@ const Wrapper = styled.div`
     justify-items: center;
 
     @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  .section--mobile {
+    @media (min-width: 641px) {
       display: none;
     }
   }

@@ -12,7 +12,7 @@ const FormRow = ({
   disabled = false,
   accept,
 }) => {
-  const optionalArr = ["firstName", "birthday", "title"]
+  const optionalArr = ["firstName", "birthday"]
   const isOptional = optionalArr.includes(name)
 
   if (type === "select") {

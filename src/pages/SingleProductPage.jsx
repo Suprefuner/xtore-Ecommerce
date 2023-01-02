@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { useParams, useNavigate } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
@@ -24,6 +24,7 @@ const SingleProductPage = () => {
   const { isLoading, error, product } = useSelector(
     (store) => store.singleProduct
   )
+  const { products } = useSelector((store) => store.products)
   const { cart } = useSelector((store) => store.cart)
 
   const [stockLevel, setStockLevel] = useState(2)
@@ -64,8 +65,6 @@ const SingleProductPage = () => {
 
   const {
     name,
-    sex,
-    category,
     price,
     originalPrice,
     images,
@@ -104,7 +103,11 @@ const SingleProductPage = () => {
       <PageHero product title={name} />
       <div className="container">
         <section className="section--display">
-          <SingleProductImageSlider images={images} id={id} />
+          <SingleProductImageSlider
+            images={images}
+            id={id}
+            product={products.find((product) => product.id === id)}
+          />
           <div className="info">
             <h2 className="brand">{brand}</h2>
             <div className="text-row">
@@ -161,6 +164,7 @@ const SingleProductPage = () => {
                 <button
                   className={`btn ${soldOut ? "btn--disable" : "btn--stroke"}`}
                   disabled={soldOut}
+                  onClick={handleAddCart}
                 >
                   buy now
                 </button>

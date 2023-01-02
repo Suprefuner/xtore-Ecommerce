@@ -106,9 +106,6 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 2rem;
 
-  @media (max-width: 640px) {
-  }
-
   & > *:not(:nth-child(n + 2):nth-child(-n + 3)) {
     justify-self: center;
   }

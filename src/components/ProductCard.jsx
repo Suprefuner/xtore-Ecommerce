@@ -60,7 +60,9 @@ const ProductCard = ({ product }) => {
         <div className="text-row">
           <span>{sex}</span>
           <span>
-            {sizeAvailable[0]} - {sizeAvailable.at(-1)}
+            {sizeAvailable.length === 1
+              ? sizeAvailable[0]
+              : `${sizeAvailable[0]} - ${sizeAvailable.at(-1)}`}
           </span>
         </div>
         <div className="text-group">

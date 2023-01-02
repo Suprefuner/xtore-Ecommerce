@@ -24,7 +24,7 @@ const Sort = () => {
 
   return (
     <Wrapper>
-      <div className="buttons desktop">
+      <div className="buttons  desktop">
         <button
           className={`${gridView ? "active" : null}`}
           onClick={() => dispatch(setGridView())}
@@ -86,8 +86,17 @@ const Wrapper = styled.div`
     }
   }
 
+  form {
+    display: flex;
+    align-items: center;
+  }
+
   select {
     padding: 0.5rem;
+
+    @media (max-width: 640px) {
+      margin-left: 2rem;
+    }
 
     &:focus {
       outline: 2px solid var(--primary-500);

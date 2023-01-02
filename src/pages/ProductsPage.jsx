@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
 
-import { getProducts } from "../features/filter/filterSlice"
-import { PageHero, Filter, Sort, ProductsList } from "../components"
-import { filterProducts } from "../features/favorite/favoriteSlice"
+import { getProducts, sortProducts } from "../features/filter/filterSlice"
+import { PageHero, Filter, Sort, ProductsList, CartModal } from "../components"
 
 const ProductsPage = () => {
   const [touchStart, setTouchStart] = useState(0)
@@ -14,6 +13,7 @@ const ProductsPage = () => {
 
   useEffect(() => {
     dispatch(getProducts(products))
+    dispatch(sortProducts())
   }, [products])
 
   const handleTouchStart = (e) => {
@@ -50,6 +50,7 @@ const Wrapper = styled.div`
   grid-template-columns: auto 70rem;
   gap: 2rem;
   margin-block: 3rem;
+  position: relative;
 
   @media (max-width: 640px) {
     position: relative;
@@ -60,6 +61,10 @@ const Wrapper = styled.div`
 
   .filter {
     background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20rem;
+
     @media (max-width: 640px) {
       position: absolute;
       top: -3rem;
@@ -74,6 +79,16 @@ const Wrapper = styled.div`
       &.hide {
         transform: translateX(-100%);
       }
+    }
+  }
+
+  .modal {
+    @media (max-width: 640px) {
+      position: fixed;
+      top: 22rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
     }
   }
 `

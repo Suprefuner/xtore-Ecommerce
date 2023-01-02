@@ -223,8 +223,18 @@ const Wrapper = styled.main`
   display: grid;
   place-content: center;
 
+  @media (max-width: 640px) {
+    place-content: initial;
+    padding: 0;
+  }
+
   .container {
     border: 1px solid var(--black);
+
+    @media (max-width: 640px) {
+      padding-inline: 2rem;
+      border: none;
+    }
   }
 
   .header {
@@ -242,6 +252,10 @@ const Wrapper = styled.main`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
 
     & > * {
       grid-column: 1/-1;

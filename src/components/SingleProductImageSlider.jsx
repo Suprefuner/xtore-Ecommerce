@@ -1,17 +1,36 @@
 import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
 import { FaRegHeart, FaHeart } from "react-icons/fa"
+import { toggleFavorite } from "../features/products/productsSlice"
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../features/favorite/favoriteSlice"
 
-const SingleProductImageSlider = ({ images, id }) => {
+const SingleProductImageSlider = ({ product }) => {
+  const { name, sex, price, brand, images, id, sizeAvailable, favorite } =
+    product
   const [mainImage, setMainImage] = useState(images[0])
-  const [favorite, setFavorite] = useState(false)
-
+  const [isFavorite, setIsFavorite] = useState(false)
+  const { products } = useSelector((store) => store.products)
   const { favorites } = useSelector((store) => store.favorite)
+  const dispatch = useDispatch()
+
+  // FIXME
+  // check if this product already in favorites list
+  useEffect(() => {
+    setIsFavorite(!!favorites.find((products) => products.id === id))
+  }, [])
 
   useEffect(() => {
-    setFavorite(!!favorites.find((products) => products.id === id))
-  }, [])
+    if (favorite) dispatch(addToFavorites(product))
+    else dispatch(removeFromFavorites(id))
+  }, [favorite])
+
+  const handleFavorite = () => {
+    dispatch(toggleFavorite(id))
+  }
 
   return (
     <Wrapper>
@@ -28,7 +47,13 @@ const SingleProductImageSlider = ({ images, id }) => {
       </div>
       <div className="mainImage">
         <img src={mainImage.url} alt="product main image" />
-        <div className="icon">{favorite ? <FaHeart /> : <FaRegHeart />}</div>
+        <div className="icon">
+          {favorite ? (
+            <FaHeart className="icon" onClick={handleFavorite} />
+          ) : (
+            <FaRegHeart className="icon" onClick={handleFavorite} />
+          )}
+        </div>
       </div>
     </Wrapper>
   )

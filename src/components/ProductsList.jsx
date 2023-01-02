@@ -4,8 +4,10 @@ import GridViewProducts from "./GridViewProducts"
 import ListViewProducts from "./ListViewProducts"
 import Loading from "./Loading"
 import { updatePage } from "../features/filter/filterSlice"
+import CartModal from "./CartModal"
 
 const ProductsList = () => {
+  const [reminderShow, setRemindShow] = useState(false)
   const { isLoading } = useSelector((store) => store.products)
   const {
     filteredProducts: products,
@@ -15,6 +17,7 @@ const ProductsList = () => {
   } = useSelector((store) => store.filter)
   const dispatch = useDispatch()
 
+  // for scroll to show more product effect
   useEffect(() => {
     const event = window.addEventListener("scroll", () => {
       if (
@@ -25,6 +28,19 @@ const ProductsList = () => {
     })
     return () => window.removeEventListener("scroll", event)
   }, [])
+
+  // for mobile version pop up modal tell user swipe right to open filter menu
+  useEffect(() => {
+    let timer
+    if (!isLoading) {
+      setRemindShow(true)
+      timer = setTimeout(() => {
+        setRemindShow(false)
+      }, 2000)
+    }
+
+    return () => clearTimeout(timer)
+  }, [isLoading])
 
   if (isLoading) {
     return (
@@ -46,9 +62,16 @@ const ProductsList = () => {
 
   if (gridView)
     return (
-      <GridViewProducts
-        products={products.slice(0, productsPerPage * (page + 1))}
-      />
+      <>
+        {reminderShow ? (
+          <div className="modal mobile">
+            <CartModal message="Swipe right to open the filter menu" />
+          </div>
+        ) : null}
+        <GridViewProducts
+          products={products.slice(0, productsPerPage * (page + 1))}
+        />
+      </>
     )
 
   return (

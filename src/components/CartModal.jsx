@@ -1,9 +1,8 @@
-import React from "react"
 import styled from "styled-components"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { closeModal, removeFromCart } from "../features/cart/cartSlice"
 
-const CartModal = () => {
+const CartModal = ({ message, cart }) => {
   const dispatch = useDispatch()
 
   const handleDelete = () => {
@@ -16,15 +15,17 @@ const CartModal = () => {
 
   return (
     <Wrapper>
-      <p>Do you want to delete this item?</p>
-      <div className="buttons">
-        <div className="btn btn--fill-black" onClick={handleDelete}>
-          delete
+      <p>{message}</p>
+      {cart ? (
+        <div className="buttons">
+          <div className="btn btn--fill-black" onClick={handleDelete}>
+            delete
+          </div>
+          <div className="btn btn--stroke" onClick={handleCancel}>
+            cancel
+          </div>
         </div>
-        <div className="btn btn--stroke" onClick={handleCancel}>
-          cancel
-        </div>
-      </div>
+      ) : null}
     </Wrapper>
   )
 }

@@ -137,6 +137,7 @@ const Filters = () => {
             max={maxPrice}
             value={price}
             className="range"
+            style={{ paddingInline: "0" }}
           />
         </div>
         <button

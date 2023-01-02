@@ -35,7 +35,7 @@ const CartPage = () => {
       <PageHero />
       {modal.isOpen ? (
         <div className="modal">
-          <CartModal />
+          <CartModal message={"Do you want to delete this item?"} cart />
         </div>
       ) : null}
       <CartContent />

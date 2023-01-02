@@ -37,6 +37,10 @@ const Wrapper = styled.div`
 
   .mobile {
     grid-template-columns: 1fr;
+
+    @media (min-width: 641px) {
+      display: none;
+    }
   }
 
   @media (max-width: 640px) {

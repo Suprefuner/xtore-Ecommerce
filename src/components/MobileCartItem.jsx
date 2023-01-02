@@ -120,7 +120,6 @@ const Wrapper = styled.div`
   gap: 2rem;
   padding-block: var(--padding-block);
   transition: all 0.2s;
-  /* overflow: hidden; */
 
   &.left {
     transform: translateX(-9rem);
@@ -141,6 +140,7 @@ const Wrapper = styled.div`
     display: flex;
     gap: 2rem;
     text-transform: capitalize;
+    padding-right: 1rem;
 
     .img-container {
       width: 30%;
