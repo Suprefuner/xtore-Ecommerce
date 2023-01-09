@@ -119,8 +119,16 @@ const Wrapper = styled.div`
     position: absolute;
     top: var(--padding);
     right: var(--padding);
+    transform: translate(50%, -50%);
     font-size: 3rem;
     color: var(--primary-500);
+    transition: all 0.2s;
+
+    cursor: pointer;
+
+    &:hover {
+      scale: 1.1;
+    }
   }
 `
 
