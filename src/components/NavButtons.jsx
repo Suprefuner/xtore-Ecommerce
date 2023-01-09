@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
@@ -10,6 +10,7 @@ import { FiMenu } from "react-icons/fi"
 
 const NavButtons = () => {
   const [listShow, setListShow] = useState(false)
+  const [displayName, setDisplayName] = useState("")
   const { user } = useSelector((store) => store.user)
   const { favorites } = useSelector((store) => store.favorite)
   const { totalItems } = useSelector((store) => store.cart)

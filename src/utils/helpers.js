@@ -1,7 +1,9 @@
 export const getRandomColor = () => {
   let colorCode = "#"
   for (let i = 0; i < 3; i++) {
-    colorCode += Math.floor(Math.random() * 256).toString(16)
+    const random = Math.floor(Math.random() * 256).toString(16)
+    colorCode +=
+      random < 10 ? `0${random}` : Math.floor(Math.random() * 256).toString(16)
   }
   return colorCode
 }

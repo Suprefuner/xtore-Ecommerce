@@ -7,10 +7,10 @@ const FormRow = ({
   value,
   handleChange,
   showPassword,
-  children,
   className,
   disabled = false,
   accept,
+  children,
 }) => {
   const optionalArr = ["firstName", "birthday"]
   const isOptional = optionalArr.includes(name)

@@ -137,6 +137,26 @@ const filterSlice = createSlice({
         tempProducts = tempProducts.filter((product) => product.price <= price)
       }
 
+      if (state.sort === "price-lowest") {
+        tempProducts = state.filteredProducts.sort((a, b) => a.price - b.price)
+      }
+
+      if (state.sort === "price-highest") {
+        tempProducts = state.filteredProducts.sort((a, b) => b.price - a.price)
+      }
+
+      if (state.sort === "name-a") {
+        tempProducts = state.filteredProducts.sort((a, b) =>
+          a.brand.localeCompare(b.brand)
+        )
+      }
+
+      if (state.sort === "name-z") {
+        tempProducts = state.filteredProducts.sort((a, b) =>
+          b.brand.localeCompare(a.brand)
+        )
+      }
+
       state.filteredProducts = tempProducts
     },
     updatePage: (state, { payload }) => {
