@@ -1,9 +1,6 @@
 // GENERAL VARAIBLES  -----------------------------------
-export const airtable_base_url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE}/${import.meta.env.VITE_AIRTABLE_TABLE}`
-export const products_url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE}/${import.meta.env.VITE_AIRTABLE_TABLE}`
-export const single_product_url = `/.netlify/functions/singleProduct?id=`
-// export const products_url = `/.netlify/functions/products`
-// export const single_product_url = `/.netlify/functions/singleProduct?id=`
+export const airtable_base_url = `https://api.airtable.com/v0/${process.env.VITE_AIRTABLE_BASE}/${process.env.VITE_AIRTABLE_TABLE}`
+// export const airtable_base_url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE}/${import.meta.env.VITE_AIRTABLE_TABLE}`
 
 // LINKS FOR NAVBAR ----------------------------------------
 export const links = [
