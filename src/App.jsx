@@ -22,6 +22,9 @@ import {
 function App() {
   const dispatch = useDispatch()
 
+  console.log(process.env.VITE_TEST);
+  console.log(process.env.TEST);
+
   useEffect(() => {
     dispatch(fetchProducts())
   }, [])
