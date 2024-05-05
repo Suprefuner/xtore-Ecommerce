@@ -22,19 +22,15 @@ import {
 function App() {
   const dispatch = useDispatch()
 
-  console.log(process.env.VITE_TEST);
-  console.log(process.env.TEST);
-
   useEffect(() => {
     dispatch(fetchProducts())
   }, [])
 
   return (
     <BrowserRouter>
-      <h1>this is {process.env.VITE_TEST}</h1>
-      <h1>this is {process.env.TEST}</h1>
-      <h1>this is {import.meta.env.VITE_TEST}</h1>
-      <h1>this is {import.meta.env.TEST}</h1>
+      <h1>this is {import.meta.env.VITE_AIRTABLE_PERSONAL_KEY}</h1>
+      <h1>this is {import.meta.env.VITE_AIRTABLE_BASE}</h1>
+      <h1>this is {import.meta.env.VITE_AIRTABLE_TABLE}</h1>
       <Navbar />
       <Sidebar />
       <Routes>
