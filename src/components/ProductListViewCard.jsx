@@ -1,27 +1,19 @@
-import styled from "styled-components"
-import { formatPrice, calcDiscounted } from "../utils/helpers"
-import { FaRegHeart, FaHeart } from "react-icons/fa"
-import { Link } from "react-router-dom"
-import { useDispatch } from "react-redux"
 import { useEffect } from "react"
+import { FaHeart, FaRegHeart } from "react-icons/fa"
+import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+import styled from "styled-components"
 import {
   addToFavorites,
   removeFromFavorites,
 } from "../features/favorite/favoriteSlice"
 import { toggleFavorite } from "../features/products/productsSlice"
+import { calcDiscounted, formatPrice } from "../utils/helpers"
 
 const ProductListViewCard = ({ product }) => {
-  const {
-    name,
-    price,
-    originalPrice,
-    brand,
-    image,
-    id,
-    sizeAvailable,
-    description,
-    favorite,
-  } = product
+  const { id, sizeAvailable, favorite } = product
+  const { name, price, brand, images, originalPrice, description } = product.fields
+  const image = images[0].url
 
   const dispatch = useDispatch()
 

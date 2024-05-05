@@ -11,25 +11,19 @@ import {
 } from "../features/cart/cartSlice"
 
 const CartItem = ({ cartItem }) => {
+  const { selected, id, color, size, quantity, max } = cartItem
+
   const {
     brand,
-    category,
-    color,
     price,
     originalPrice,
     name,
-    sex,
-    size,
     images,
-    quantity,
-    max,
-    selected,
-    id,
-  } = cartItem
+  } = cartItem.fields
 
   const [stockLevel, setStockLevel] = useState(max)
-  const [isMax, setIsMax] = useState(quantity === max)
-  const [count, setCount] = useState(quantity)
+  const [isMax, setIsMax] = useState(false)
+  const [count, setCount] = useState(1)
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -37,8 +31,18 @@ const CartItem = ({ cartItem }) => {
   }
 
   useEffect(() => {
+    if (!cartItem.fields) return
+    const { quantity, max } = cartItem
+    setStockLevel(max)
+    setIsMax(quantity === max)
+    setCount(quantity)
+  }, [cartItem])
+
+  useEffect(() => {
+    if (!count) return
     dispatch(updateQuantity({ id, count }))
   }, [count])
+
 
   return (
     <Wrapper>
@@ -58,7 +62,7 @@ const CartItem = ({ cartItem }) => {
           <div className="name">{name}</div>
           <div>size : {size}</div>
           <div className="color">
-            color : <Color fillColor={color}></Color>
+            color : <Color fillColor={color} />
           </div>
         </div>
       </div>

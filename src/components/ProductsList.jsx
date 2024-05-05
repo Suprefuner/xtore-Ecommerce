@@ -17,6 +17,7 @@ const ProductsList = () => {
   } = useSelector((store) => store.filter)
   const dispatch = useDispatch()
 
+
   // for scroll to show more product effect
   useEffect(() => {
     const event = window.addEventListener("scroll", () => {
@@ -32,6 +33,7 @@ const ProductsList = () => {
   // for mobile version pop up modal tell user swipe right to open filter menu
   useEffect(() => {
     let timer
+
     if (!isLoading) {
       setRemindShow(true)
       timer = setTimeout(() => {

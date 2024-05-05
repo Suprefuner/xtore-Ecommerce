@@ -1,6 +1,9 @@
 // GENERAL VARAIBLES  -----------------------------------
-export const products_url = `/.netlify/functions/products`
+export const airtable_base_url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE}/${import.meta.env.VITE_AIRTABLE_TABLE}`
+export const products_url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE}/${import.meta.env.VITE_AIRTABLE_TABLE}`
 export const single_product_url = `/.netlify/functions/singleProduct?id=`
+// export const products_url = `/.netlify/functions/products`
+// export const single_product_url = `/.netlify/functions/singleProduct?id=`
 
 // LINKS FOR NAVBAR ----------------------------------------
 export const links = [
@@ -35,3 +38,9 @@ export const sliderImgs = [
     url: carouselImg3,
   },
 ]
+
+// PRODUCT PAGE DESCRIPTION ----------------------------------------
+export const pageDescription = {
+  men: "Explore our Men's Clothing collection, where classic meets contemporary. Discover quality men's apparel for every occasion, from casual wear to tailored suits. Look and feel your best with our stylish and versatile pieces. Elevate your style effortlessly with our on-trend selection. Redefine your personal style with confidence and sophistication.",
+  women: "Discover our Women's Clothing collection, where style meets elegance. Explore trendy apparel for every occasion, from casual essentials to evening wear. Find the perfect outfit that empowers your unique style. Shop high-quality, versatile pieces that cater to your fashion needs. Elevate your wardrobe with the latest trends in women's fashion."
+}

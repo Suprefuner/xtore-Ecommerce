@@ -8,13 +8,13 @@ import {
 const getInitialCartTotal = (type) => {
   return type === "items"
     ? getCartFromLocalStorage().reduce(
-        (acc, { quantity }) => (acc += quantity),
-        0
-      )
+      (acc, { quantity }) => (acc += quantity),
+      0
+    )
     : getCartFromLocalStorage().reduce(
-        (acc, { quantity, price }) => (acc += quantity * price),
-        0
-      )
+      (acc, { quantity, price }) => (acc += quantity * price),
+      0
+    )
 }
 
 const initialState = {
@@ -35,7 +35,9 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, { payload }) => {
       const { id, color, size, quantity } = payload
+
       const tempProduct = state.cart.find((i) => i.id === id + color + size)
+
       if (tempProduct) {
         tempProduct.quantity += quantity
         if (tempProduct.quantity > tempProduct.max)
@@ -108,8 +110,8 @@ const cartSlice = createSlice({
       //   0
       // )
       const tempObj = state.cart.reduce(
-        (acc, { quantity, price }) => {
-          acc.totalAmount += price * quantity
+        (acc, { quantity, fields }) => {
+          acc.totalAmount += fields.price * quantity
           acc.totalItems += quantity
           return acc
         },

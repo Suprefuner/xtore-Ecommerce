@@ -9,8 +9,9 @@ import {
 } from "../features/favorite/favoriteSlice"
 
 const SingleProductImageSlider = ({ product }) => {
-  const { name, sex, price, brand, images, id, sizeAvailable, favorite } =
-    product
+  const { id, sizeAvailable, favorite } = product
+  const { name, sex, price, brand, images, } = product.fields
+
   const [mainImage, setMainImage] = useState(images[0])
   const [isFavorite, setIsFavorite] = useState(false)
   const { products } = useSelector((store) => store.products)
@@ -27,6 +28,8 @@ const SingleProductImageSlider = ({ product }) => {
     if (favorite) dispatch(addToFavorites(product))
     else dispatch(removeFromFavorites(id))
   }, [favorite])
+
+  if (!product.fields) return null
 
   const handleFavorite = () => {
     dispatch(toggleFavorite(id))

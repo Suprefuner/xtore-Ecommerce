@@ -1,23 +1,23 @@
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { fetchProducts } from "./features/products/productsSlice"
-import { ToastContainer, Slide } from "react-toastify"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { fetchProducts } from "./features/products/productsSlice"
 
+import { Error, Footer, Navbar, Sidebar } from "./components"
 import {
-  HomePage,
-  ProductsPage,
-  ProductInGenderPage,
-  SingleProductPage,
-  FavoritePage,
   CartPage,
   CheckoutPage,
+  FavoritePage,
+  HomePage,
   PrivateRoute,
-  RegisterPage,
+  ProductInGenderPage,
+  ProductsPage,
   ProfilePage,
+  RegisterPage,
+  SingleProductPage,
 } from "./pages"
-import { Navbar, Sidebar, Footer, Error } from "./components"
 
 function App() {
   const dispatch = useDispatch()

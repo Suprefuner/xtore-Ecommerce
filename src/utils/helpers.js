@@ -19,13 +19,15 @@ export const calcDiscounted = (price, originalPrice) => {
 }
 
 export const getUniqueValues = (data, type, start = "all") => {
-  let unique = data.map((data) => data[type])
-  if (type === "colors") unique = unique.flat()
+  if (!data || !data.length) return [start]
+
+  let unique = data?.map((data) => data.fields[type])
+  if (type === "colors") unique = unique?.flat()
   return [start, ...new Set(unique)]
 }
 
 const categoriesOrder = {
-  "t-shirt": 1,
+  "t-shiFt": 1,
   dress: 2,
   jacket: 3,
   shorts: 4,
@@ -33,9 +35,30 @@ const categoriesOrder = {
   shoes: 6,
 }
 
-export const getCategoriesInOrder = (array) =>
-  array.sort((a, b) => {
+export const getCategoriesInOrder = (array) => {
+  return array.sort((a, b) => {
     return array.includes("t-shirt")
       ? categoriesOrder[a] - categoriesOrder[b]
       : a.localeCompare(b)
   })
+}
+
+export const getTrendingProducts = (products, user) => {
+  let filteredProducts
+
+  if (user && user === "mr.") {
+    filteredProducts = products.filter((product) =>
+      product.sex === "men" && product.fields.stars >= 4
+    )
+  }
+
+  if (user && user !== "mr.") {
+    filteredProducts = products.filter((product) =>
+      product.sex === "women" && product.fields.stars >= 4
+    )
+  }
+
+  filteredProducts = products.filter((product) => product.fields.stars >= 4)
+
+  return filteredProducts
+}

@@ -1,30 +1,37 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
-import { PageHero, Slider } from "../components"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+
+import { pageDescription } from "../utils/constants"
 import { getUniqueValues, getCategoriesInOrder } from "../utils/helpers"
 import { updateFilter, filterProducts } from "../features/filter/filterSlice"
 
+import { PageHero, Slider } from "../components"
+
 const ProductInGenderPage = ({ sex }) => {
   const [gender, setGender] = useState("")
+  const [genderProducts, setGenderProducts] = useState([]);
+  const [categoriesInOrder, setCategoriesInOrder] = useState([]);
   const { products } = useSelector((store) => store.products)
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const genderProduct = products.filter(
+      ({ fields }) => fields.sex === sex)
+    const categories = getUniqueValues(genderProduct, "category")
+
     setGender(sex)
-  }, [])
-
-  const productsInGender = products.filter((product) => product.sex === gender)
-  const categories = getUniqueValues(productsInGender, "category")
-
-  const categoriesInOrder = getCategoriesInOrder(categories)
+    setGenderProducts(genderProduct)
+    setCategoriesInOrder(getCategoriesInOrder(categories))
+  }, [products, sex])
 
   const handleClick = (category) => {
     dispatch(updateFilter({ name: "sex", value: gender }))
     dispatch(updateFilter({ name: "category", value: category }))
     dispatch(filterProducts())
   }
+
 
   return (
     <Wrapper>
@@ -33,13 +40,7 @@ const ProductInGenderPage = ({ sex }) => {
         <div className="container">
           <h2>{gender}</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint
-            fugiat harum esse! At similique maiores accusantium autem earum, qui
-            magni enim ipsa officia temporibus possimus necessitatibus quisquam
-            neque beatae vero. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Necessitatibus soluta pariatur dolor accusantium
-            similique consequatur explicabo, assumenda voluptatibus excepturi
-            expedita.
+            {pageDescription[gender]}
           </p>
         </div>
       </section>
@@ -54,8 +55,8 @@ const ProductInGenderPage = ({ sex }) => {
                 </Link>
               </div>
               <Slider
-                products={productsInGender
-                  .filter((product) => product.category === cat)
+                products={genderProducts
+                  .filter(({ fields }) => fields.category === cat)
                   .slice(0, 5)}
               />
             </div>

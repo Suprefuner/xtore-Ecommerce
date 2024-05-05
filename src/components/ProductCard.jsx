@@ -11,20 +11,30 @@ import {
 import { useDispatch } from "react-redux"
 
 const ProductCard = ({ product }) => {
-  const { name, sex, price, brand, images, id, sizeAvailable, favorite } =
-    product
+  const { id, sizeAvailable, favorite } = product
+  const { name, sex, price, brand, images, } = product.fields
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (favorite) dispatch(addToFavorites(product))
-    else dispatch(removeFromFavorites(id))
+    if (!product || !product.fields) return
+
+    if (favorite) {
+      dispatch(addToFavorites(product))
+    } else {
+      dispatch(removeFromFavorites(id))
+    }
   }, [favorite])
 
   const handleFavorite = () => {
     dispatch(toggleFavorite(id))
   }
 
-  if (name === "") {
+  if (!product || !product.fields) {
+    return null
+  }
+
+  if (name === '') {
     return (
       <Wrapper>
         <div className="skeleton skeleton-img"></div>

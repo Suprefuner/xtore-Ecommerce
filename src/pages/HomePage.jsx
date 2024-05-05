@@ -1,39 +1,29 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Carousell, Slider, SocialMediaLinks } from "../components"
+import { useSelector } from "react-redux"
+import { getTrendingProducts } from "../utils/helpers"
+
+import { Carousell, Loading, Slider, SocialMediaLinks } from "../components"
 import styled from "styled-components"
 import shopMenImg from "../assets/images/home/shop-men.jpg"
 import shopWomenImg from "../assets/images/home/shop-women.jpg"
 import emailImg from "../assets/images/home/contact.png"
 
-import { useSelector } from "react-redux"
-
 const HomePage = () => {
-  const { user } = useSelector((store) => store.user)
   const { products } = useSelector((store) => store.products)
+  const { user } = useSelector((store) => store.user)
   const [email, setEmail] = useState(user ? user.email : "")
+  const [trendingProducts, setTrendingProducts] = useState([]);
 
-  const getTrendingProducts = (products) => {
-    if (user && user === "mr.") {
-      return products.filter(
-        (product) => product.sex === "men" && product.stars >= 4
-      )
-    }
+  useEffect(() => {
+    setTrendingProducts(getTrendingProducts(products, user))
+  }, [products, user])
 
-    if (user && user !== "mr.") {
-      return products.filter(
-        (product) => product.sex === "women" && product.stars >= 4
-      )
-    }
-
-    return products.filter((product) => product.stars >= 4)
+  if (!products.length) {
+    return <Loading />
   }
 
-  let trendingProducts = getTrendingProducts(products)
-
-  const handleChange = (e) => {
-    setEmail()
-  }
+  const handleChange = () => setEmail()
 
   return (
     <Wrapper>
@@ -75,10 +65,7 @@ const HomePage = () => {
             <article className="text">
               <h3>Join our newsletter and get 20% off</h3>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla
-                inventore, quos qui quisquam nemo dolorem iste consequuntur
-                molestiae doloremque, adipisci architecto unde pariatur tempora
-                perferendis a animi maxime! Minus, dolores?
+                Subscribe to our newsletter to receive your exclusive discount code and stay in the loop with our latest arrivals.
               </p>
             </article>
             <form action="https://formspree.io/f/mnqyagoe" method="POST">
@@ -272,7 +259,14 @@ const Wrapper = styled.main`
 
     .text {
       display: grid;
+      padding-inline: 0rem;
       gap: 2rem;
+
+      @media (max-width: 640px) {
+        display: grid;
+        padding-inline: 2rem;
+        padding-bottom: 3rem;
+      }
     }
 
     form {

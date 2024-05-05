@@ -37,7 +37,7 @@ const filterSlice = createSlice({
         sex.toLowerCase() !== "all"
       ) {
         tempProducts = tempProducts.filter(
-          (product) => product.category === category && product.sex === sex
+          (product) => product.fields.category === category && product.fields.sex === sex
         )
       }
 
@@ -46,12 +46,12 @@ const filterSlice = createSlice({
         tempProducts.length / state.productsPerPage
       )
 
-      state.filters.price = Math.max(...payload.map((product) => product.price))
+      state.filters.price = Math.max(...payload.map((product) => product.fields.price))
       state.filters.maxPrice = Math.max(
-        ...payload.map((product) => product.price)
+        ...payload.map((product) => product.fields.price)
       )
       state.filters.minPrice = Math.min(
-        ...payload.map((product) => product.price)
+        ...payload.map((product) => product.fields.price)
       )
     },
     setGridView: (state) => {
@@ -66,22 +66,22 @@ const filterSlice = createSlice({
     sortProducts: (state) => {
       let tempProducts = []
       if (state.sort === "price-lowest") {
-        tempProducts = state.filteredProducts.sort((a, b) => a.price - b.price)
+        tempProducts = state.filteredProducts.sort((a, b) => a.fields.price - b.fields.price)
       }
 
       if (state.sort === "price-highest") {
-        tempProducts = state.filteredProducts.sort((a, b) => b.price - a.price)
+        tempProducts = state.filteredProducts.sort((a, b) => b.fields.price - a.fields.price)
       }
 
       if (state.sort === "name-a") {
         tempProducts = state.filteredProducts.sort((a, b) =>
-          a.brand.localeCompare(b.brand)
+          a.fields.brand.localeCompare(b.fields.brand)
         )
       }
 
       if (state.sort === "name-z") {
         tempProducts = state.filteredProducts.sort((a, b) =>
-          b.brand.localeCompare(a.brand)
+          b.fields.brand.localeCompare(a.fields.brand)
         )
       }
 
@@ -108,52 +108,52 @@ const filterSlice = createSlice({
       if (text) {
         tempProducts = tempProducts.filter(
           (product) =>
-            product.name.toLowerCase().includes(text) ||
-            product.brand.toLowerCase().includes(text)
+            product.fields.name.toLowerCase().includes(text) ||
+            product.fields.brand.toLowerCase().includes(text)
         )
       }
 
       if (category && category.toLowerCase() !== "all") {
         tempProducts = tempProducts.filter(
-          (product) => product.category === category
+          (product) => product.fields.category === category
         )
       }
 
       if (sex && sex.toLowerCase() !== "all") {
-        tempProducts = tempProducts.filter((product) => product.sex === sex)
+        tempProducts = tempProducts.filter((product) => product.fields.sex === sex)
       }
 
       if (brand && brand.toLowerCase() !== "all") {
-        tempProducts = tempProducts.filter((product) => product.brand === brand)
+        tempProducts = tempProducts.filter((product) => product.fields.brand === brand)
       }
 
       if (color && color.toLowerCase() !== "all") {
         tempProducts = tempProducts.filter((product) =>
-          product.colors.includes(color)
+          product.fields.colors.includes(color)
         )
       }
 
       if (price) {
-        tempProducts = tempProducts.filter((product) => product.price <= price)
+        tempProducts = tempProducts.filter((product) => product.fields.price <= price)
       }
 
       if (state.sort === "price-lowest") {
-        tempProducts = tempProducts.sort((a, b) => a.price - b.price)
+        tempProducts = tempProducts.sort((a, b) => a.fields.price - b.fields.price)
       }
 
       if (state.sort === "price-highest") {
-        tempProducts = tempProducts.sort((a, b) => b.price - a.price)
+        tempProducts = tempProducts.sort((a, b) => b.fields.price - a.fields.price)
       }
 
       if (state.sort === "name-a") {
         tempProducts = tempProducts.sort((a, b) =>
-          a.brand.localeCompare(b.brand)
+          a.fields.brand.localeCompare(b.fields.brand)
         )
       }
 
       if (state.sort === "name-z") {
         tempProducts = tempProducts.sort((a, b) =>
-          b.brand.localeCompare(a.brand)
+          b.fields.brand.localeCompare(a.fields.brand)
         )
       }
 

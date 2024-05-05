@@ -1,8 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
-import axios from "axios"
-import { products_url as url } from "../../utils/constants"
 import { getFavoriteFromLocalStorage } from "../../utils/localStorage"
+import airtableFetch from "../../utils/axios"
 
 const initialFilter = {
   search: "",
@@ -30,7 +29,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios(url)
+      const { data } = await airtableFetch()
       return data
     } catch (err) {
       thunkAPI.rejectWithValue(`Fetch products failed. ${err.message}`)
@@ -59,25 +58,31 @@ const productsSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
-        state.products = payload.map((product) => {
+        const { records } = payload
+        state.products = records.map((product) => {
+          const { stock, sizes } = product.fields
           let inventory = {}
-          const stockList = product.stock.split(",")
-          product.sizes.forEach((size, i) => {
+          const stockList = stock.split(",")
+          sizes.forEach((size, i) => {
             inventory[size] = +stockList[i]
           })
 
           let sizeAvailable = []
-          product.sizes.forEach((size) => {
+          sizes.forEach((size) => {
             if (inventory[size]) sizeAvailable.push(size)
           })
 
           const favoriteList = getFavoriteFromLocalStorage()
           // const favoriteList = []
-          const favorite = favoriteList.find(
+          // const favorite = favoriteList.find(
+          //   (favItem) => favItem.id === product.id
+          // )
+          //   ? true
+          //   : false
+
+          const favorite = !!favoriteList.find(
             (favItem) => favItem.id === product.id
           )
-            ? true
-            : false
 
           return {
             ...product,

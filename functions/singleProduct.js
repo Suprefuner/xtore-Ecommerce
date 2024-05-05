@@ -10,7 +10,6 @@ const airtable = new Airtable({
 
 exports.handler = async (event, context, cb) => {
   const { id } = event.queryStringParameters
-  console.log(id)
   if (id) {
     try {
       let product = await airtable.retrieve(id)

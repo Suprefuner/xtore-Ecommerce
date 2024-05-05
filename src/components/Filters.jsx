@@ -15,14 +15,14 @@ import {
 
 const Filters = () => {
   const { allProducts, filters } = useSelector((store) => store.filter)
-  const { text, brand, sex, category, color, minPrice, maxPrice, price } =
-    filters
+  const { text, brand, sex, category, color, minPrice, maxPrice, price } = filters
   const dispatch = useDispatch()
 
   const allColors = getUniqueValues(allProducts, "colors")
   const sexes = getUniqueValues(allProducts, "sex")
   let brands = getUniqueValues(allProducts, "brand")
   let categories = getUniqueValues(allProducts, "category")
+
   // re-order the array
   brands = getCategoriesInOrder(brands)
   categories = getCategoriesInOrder(categories)
@@ -53,7 +53,7 @@ const Filters = () => {
         </div>
         <div className="form-control control-categories">
           <h5>Gender</h5>
-          {sexes.map((s, i) => (
+          {sexes?.map((s, i) => (
             <button
               key={i}
               name="sex"
@@ -67,7 +67,7 @@ const Filters = () => {
         </div>
         <div className="form-control control-categories">
           <h5>Category</h5>
-          {categories.map((c, i) => (
+          {categories?.map((c, i) => (
             <button
               key={i}
               name="category"
@@ -88,7 +88,7 @@ const Filters = () => {
             onChange={handleChange}
             className="brand"
           >
-            {brands.map((b, i) => (
+            {brands?.map((b, i) => (
               <option key={i} name="brand" value={b} onClick={handleChange}>
                 {b}
               </option>
@@ -98,7 +98,7 @@ const Filters = () => {
         <div className="form-control">
           <h5>Colors</h5>
           <div className="colors">
-            {allColors.map((c, i) => {
+            {allColors?.map((c, i) => {
               if (c === "all") {
                 return (
                   <button

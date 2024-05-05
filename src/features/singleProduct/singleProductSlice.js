@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
+import airtableFetch from "../../utils/axios"
 
 const initialProductState = {
   id: "",
@@ -28,9 +28,9 @@ const initialState = {
 
 export const fetchSingleProduct = createAsyncThunk(
   "singleProduct/fetchSingleProduct",
-  async ({ id, url }, thunkAPI) => {
+  async ({ id }, thunkAPI) => {
     try {
-      const { data } = await axios(`${url}${id}`)
+      const { data } = await airtableFetch(`/${id}`)
       return data
     } catch (err) {
       return thunkAPI.rejectWithValue(err)
@@ -48,13 +48,14 @@ const singleProductSlice = createSlice({
     builder.addCase(fetchSingleProduct.fulfilled, (state, { payload }) => {
       // format data -----------------------------------------
       let inventory = {}
-      const stockList = payload.stock.split(",")
-      payload.sizes.forEach((size, i) => {
+      const { stock, sizes } = payload.fields
+      const stockList = stock.split(",")
+      sizes.forEach((size, i) => {
         inventory[size] = +stockList[i]
       })
 
       let sizeAvailable = []
-      payload.sizes.forEach((size) => {
+      sizes.forEach((size) => {
         if (inventory[size]) sizeAvailable.push(size)
       })
       // ----------------------------------------------------

@@ -11,8 +11,8 @@ import {
 import { useDispatch } from "react-redux"
 
 const MobileProductCard = ({ product }) => {
-  const { name, sex, price, brand, images, id, sizeAvailable, favorite } =
-    product
+  const { id, sizeAvailable, favorite } = product
+  const { name, sex, price, brand, images, } = product.fields
   const dispatch = useDispatch()
 
   useEffect(() => {

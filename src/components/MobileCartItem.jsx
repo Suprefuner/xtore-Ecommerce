@@ -11,23 +11,19 @@ import {
 } from "../features/cart/cartSlice"
 
 const MobileCartItem = ({ cartItem }) => {
+  const { selected, id, color, size, quantity, max } = cartItem
+
   const {
     brand,
-    color,
     price,
     originalPrice,
     name,
-    size,
     images,
-    quantity,
-    max,
-    selected,
-    id,
-  } = cartItem
+  } = cartItem.fields
 
   const [stockLevel, setStockLevel] = useState(max)
-  const [isMax, setIsMax] = useState(quantity === max)
-  const [count, setCount] = useState(quantity)
+  const [isMax, setIsMax] = useState(false)
+  const [count, setCount] = useState(1)
   const [touchStart, setTouchStart] = useState(0)
   const [isSwipeLeft, setIsSwipeLeft] = useState(false)
   const dispatch = useDispatch()
@@ -46,6 +42,15 @@ const MobileCartItem = ({ cartItem }) => {
   }
 
   useEffect(() => {
+    if (!cartItem.fields) return
+    const { quantity, max } = cartItem
+    setStockLevel(max)
+    setIsMax(quantity === max)
+    setCount(quantity)
+  }, [cartItem.fields])
+
+  useEffect(() => {
+    if (!count) return
     dispatch(updateQuantity({ id, count }))
   }, [count])
 

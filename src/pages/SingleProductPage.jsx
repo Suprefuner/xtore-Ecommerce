@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 
 import { fetchSingleProduct } from "../features/singleProduct/singleProductSlice"
-import { single_product_url as url } from "../utils/constants"
 import { formatPrice, calcDiscounted } from "../utils/helpers"
 import {
   Loading,
@@ -35,7 +34,7 @@ const SingleProductPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(fetchSingleProduct({ id, url }))
+    dispatch(fetchSingleProduct({ id }))
   }, [id])
 
   useEffect(() => {
@@ -63,39 +62,59 @@ const SingleProductPage = () => {
     return <Error />
   }
 
+  if (!product.fields || !products.length) return null
+
+  const { soldOut, sizeAvailable, stock } = product
   const {
+    colors,
+    description,
+    images,
+    stars,
+    brand,
+    originalPrice,
     name,
     price,
-    originalPrice,
-    images,
-    description,
-    colors,
-    brand,
-    sizes,
-    stock,
-    stars,
-    soldOut,
-    sizeAvailable,
-  } = product
+    sizes
+  } = product.fields
 
   const isDiscounted = !(price === originalPrice)
 
   const handleAddCart = () => {
     const productCopy = { ...product }
-    productCopy.color = productCopy.colors[0]
-    productCopy.max = productCopy.stock[currentSize]
-    delete productCopy.sizes
+    productCopy.color = productCopy.fields.colors[0]
+    const sizeIndex = productCopy.fields.sizes.indexOf(currentSize)
+    productCopy.max = +productCopy.fields.stock.split(',')[sizeIndex]
+
+    const tempFields = { ...productCopy.fields }
+
+    delete tempFields.sizes
+    delete tempFields.stock
+    delete tempFields.colors
     delete productCopy.sizeAvailable
-    delete productCopy.stock
-    delete productCopy.colors
+
+    const cartItem = {
+      ...productCopy,
+      fields: { ...tempFields },
+      size: currentSize,
+      quantity: count,
+    }
 
     dispatch(
       addToCart({
-        ...productCopy,
+        ...cartItem,
         size: currentSize,
         quantity: count,
       })
     )
+
+
+    // dispatch(
+    //   addToCart({
+    //     ...productCopy,
+    //     size: currentSize,
+    //     quantity: count,
+    //   })
+    // )
   }
 
   return (
@@ -170,9 +189,8 @@ const SingleProductPage = () => {
                 </button>
               </Link>
               <button
-                className={`btn ${
-                  soldOut ? "btn--disable" : "btn--fill-black"
-                }`}
+                className={`btn ${soldOut ? "btn--disable" : "btn--fill-black"
+                  }`}
                 disabled={soldOut}
                 onClick={handleAddCart}
               >

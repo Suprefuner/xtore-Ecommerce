@@ -2,15 +2,16 @@ import React from "react"
 import styled, { css } from "styled-components"
 import { formatPrice } from "../utils/helpers"
 
-const CartListItem = ({
-  brand,
-  name,
-  size,
-  color,
-  quantity,
-  price,
-  images,
-}) => {
+const CartListItem = ({ fields }) => {
+  const {
+    brand,
+    name,
+    size,
+    quantity,
+    price,
+    images,
+  } = fields
+
   return (
     <Wrapper image={images[0].url}>
       <div className="img-container"></div>
