@@ -31,6 +31,10 @@ function App() {
 
   return (
     <BrowserRouter>
+      <h1>this is {process.env.VITE_TEST}</h1>
+      <h1>this is {process.env.TEST}</h1>
+      <h1>this is {import.meta.env.VITE_TEST}</h1>
+      <h1>this is {import.meta.env.TEST}</h1>
       <Navbar />
       <Sidebar />
       <Routes>
