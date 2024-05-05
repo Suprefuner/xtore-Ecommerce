@@ -28,9 +28,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <h1>this is {import.meta.env.VITE_AIRTABLE_PERSONAL_KEY}</h1>
-      <h1>this is {import.meta.env.VITE_AIRTABLE_BASE}</h1>
-      <h1>this is {import.meta.env.VITE_AIRTABLE_TABLE}</h1>
       <Navbar />
       <Sidebar />
       <Routes>
